@@ -1,49 +1,43 @@
 <template>
-  <div class="">
+  <div class="marks-container" v-click-outside="closeCard">
     <div
-      :class="{ active: isOpen }"
       class="mark"
       v-for="mark in marks"
-      :key="mark"
+      :key="mark.id"
       v-bind:style="{
         top: calcAxysY(mark.markAxysY),
         left: calcAxysX(mark.markAxysX),
       }"
     >
-      <button
-        type="button"
-        class="mark__btn"
-        @click="
-          {
-            isOpen = !isOpen
-          }
-        "
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M13.7267 4.60014C13.7127 4.57684 13.6971 4.55456 13.68 4.53348C12.8177 3.11433 11.4568 2.06808 9.86373 1.59952C8.27062 1.13096 6.56 1.27382 5.06668 2.00014H5.02001C3.98972 2.53071 3.11553 3.32068 2.48366 4.29214C1.85179 5.2636 1.48407 6.383 1.41677 7.53992C1.34947 8.69684 1.58491 9.85133 2.09987 10.8895C2.61483 11.9277 3.39153 12.8137 4.35335 13.4601L4.57335 13.5935L4.64001 13.6401C5.6471 14.2787 6.80799 14.6335 8.00001 14.6668H8.14001C9.30423 14.6412 10.4414 14.311 11.4384 13.7092C12.4353 13.1074 13.2572 12.255 13.8223 11.2368C14.3874 10.2185 14.6759 9.07008 14.6591 7.9057C14.6423 6.74132 14.3209 5.60165 13.7267 4.60014ZM12.6667 5.37348C12.8448 5.68188 12.99 6.00811 13.1 6.34681C12.4539 6.13664 11.7794 6.02648 11.1 6.02014C11.0318 6.00684 10.9616 6.00684 10.8933 6.02014C10.0743 6.031 9.2646 6.1961 8.50668 6.50681C8.04473 6.21732 7.63085 5.85742 7.28001 5.44014C8.09483 4.96233 9.02001 4.70491 9.96452 4.69322C10.909 4.68153 11.8403 4.91597 12.6667 5.37348ZM8.00001 2.66681C8.93668 2.66197 9.85752 2.9083 10.6667 3.38014C10.4457 3.35025 10.223 3.33467 10 3.33348C8.77642 3.33582 7.57707 3.67486 6.53335 4.31348C6.33644 3.90237 6.19305 3.46772 6.10668 3.02014C6.71079 2.78728 7.35258 2.66751 8.00001 2.66681ZM4.00001 4.47348C4.26605 4.17778 4.56334 3.91179 4.88668 3.68014C5.10928 4.53003 5.49932 5.32692 6.03393 6.02409C6.56855 6.72127 7.23697 7.30468 8.00001 7.74014C7.95247 8.40695 7.77824 9.05858 7.48668 9.66014C6.46534 9.28319 5.58382 8.6027 4.96054 7.71008C4.33726 6.81747 4.00207 5.75549 4.00001 4.66681V4.47348ZM2.66668 8.00014C2.66787 7.46449 2.74876 6.93199 2.90668 6.42014C3.17024 7.38803 3.64883 8.28396 4.30677 9.04118C4.96472 9.7984 5.78507 10.3974 6.70668 10.7935C6.17608 11.4152 5.50706 11.9039 4.75335 12.2201C4.10582 11.7233 3.58096 11.0845 3.2192 10.3528C2.85743 9.62121 2.66841 8.81632 2.66668 8.00014ZM7.90668 13.3335C7.31227 13.3248 6.72374 13.2144 6.16668 13.0068C7.04114 12.4678 7.77832 11.7329 8.32001 10.8601C8.93391 9.88179 9.28309 8.76072 9.33335 7.60681C9.71807 7.48034 10.1164 7.39978 10.52 7.36681C10.8048 8.51034 10.7029 9.716 10.2301 10.7955C9.75728 11.8749 8.94028 12.7674 7.90668 13.3335ZM10.72 12.5868C11.5527 11.4495 12.0011 10.0764 12 8.66681C11.9971 8.24631 11.9569 7.8269 11.88 7.41348C12.3813 7.50207 12.8681 7.65909 13.3267 7.88014V8.00014C13.3261 8.92393 13.0855 9.83172 12.6285 10.6346C12.1716 11.4374 11.5139 12.1079 10.72 12.5801V12.5868Z"
-            fill="white"
-          />
-        </svg>
-      </button>
+      <mark-btn :mark="mark" @click.native="showCard" />
 
-      <mark-card v-if="isOpen" />
+      <div class="mark-card">
+        <div class="mark-card__left">
+          <img src="@/assets/images/card-img.jpg" alt="" />
+        </div>
+        <div class="mark-card__right">
+          <h4 class="mark-card__title">{{ mark.title }}</h4>
+          <p class="mark-card__description">
+            {{ mark.descr }}
+          </p>
+          <div class="mark-card__button">
+            <button class="btn-red">Pasižymėti objektą</button>
+            <button class="btn-border">Naviguoti</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import markCard from './mark-card.vue'
+import ClickOutside from 'vue-click-outside'
+import MarkBtn from './mark-btn.vue'
+
 export default {
   name: 'v-mark',
   components: {
-    'mark-card': markCard,
+    'mark-btn': MarkBtn,
   },
   data() {
     return {
@@ -71,31 +65,135 @@ export default {
       const deffMapY = endMapY - startMapY
       return ((pos - startMapY) / deffMapY) * 100 + '%'
     },
+    closeCard: function () {
+      const marksItems = document.querySelectorAll('.mark')
+
+      marksItems.forEach((markItem) => {
+        if (markItem.classList.contains('active')) {
+          markItem.classList.remove('active')
+        }
+      })
+    },
+    showCard: function (event) {
+      const marksItems = document.querySelectorAll('.mark')
+
+      marksItems.forEach((markItem) => {
+        if (markItem.classList.contains('active')) {
+          markItem.classList.remove('active')
+        }
+      })
+      event.target.closest('.mark').classList.add('active')
+    },
+  },
+  directives: {
+    ClickOutside,
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mark {
   transform: translate(-50%, -50%);
   position: absolute;
-  // left: calc(((21.102827 - 20.36) / 3.74) * 100%);
   z-index: 20;
   cursor: pointer;
-  &__btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #ffffff;
-    width: 26px;
-    height: 26px;
-    transition: 0.3s;
-    border-radius: 50%;
-    background: #2f354d;
-
-    &:hover {
-      background: #db3831;
+  &.active {
+    .mark-card {
+      display: flex;
     }
+  }
+}
+.mark-btn {
+  &:hover {
+    background: #db3831;
+  }
+  &.not-hover:not(&.active) {
+    background: #ced4d1 !important;
+  }
+  &.not-active:not(&.active) {
+    background: #ced4d1 !important;
+    transform: scale(0);
+  }
+}
+.mark-card {
+  cursor: default;
+  overflow: hidden;
+  // height: 158px;
+  width: 365px;
+  border-radius: 8.59016px;
+  background: #ffffff;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 5px);
+  column-gap: 15px;
+  display: none;
+  &__left {
+    width: 99px;
+    align-self: stretch;
+    flex: none;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__right {
+    flex: 1 1 auto;
+    padding: 11px 16px 20px 0px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    max-height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #212b36;
+  }
+  &__description {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 57px;
+    color: #212b36;
+  }
+  &__button {
+    margin-bottom: 0px;
+    margin-top: auto;
+    display: flex;
+    .btn-red {
+      margin-right: 6px;
+    }
+  }
+  .btn-red {
+    color: #ffffff;
+    background: #db3831;
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 8.05328px;
+    line-height: 14px;
+  }
+  .btn-border {
+    font-weight: 700;
+    font-size: 8.05328px;
+    line-height: 14px;
+    color: #db3831;
+    background: #ffffff;
+    border: 1px solid #db3831;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 6px 12px;
   }
 }
 </style>

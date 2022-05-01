@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ openDropdown }" class="dropdown">
+  <div v-click-outside="hide" :class="{ openDropdown }" class="dropdown">
     <button
       type="button"
       @click="openDropdown = !openDropdown"
@@ -67,12 +67,22 @@
   </div>
 </template>
 <script>
+import ClickOutside from 'vue-click-outside'
+
 export default {
   name: 'dropDown',
   data() {
     return {
       openDropdown: false,
     }
+  },
+  methods: {
+    hide() {
+      this.openDropdown = false
+    },
+  },
+  directives: {
+    ClickOutside,
   },
 }
 </script>

@@ -140,7 +140,15 @@ export default {
     'v-dropdown': dropDown,
     'marks-selected': marksSelected,
   },
-  methods: {},
+  methods: {
+    closeBurger() {
+      if (this.openBurger == true) {
+        this.openBurger = false
+      }
+      console.log(this.openBurger)
+    },
+  },
+
   computed: {},
 }
 </script>

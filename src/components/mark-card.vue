@@ -4,11 +4,9 @@
       <img src="@/assets/images/card-img.jpg" alt="" />
     </div>
     <div class="mark-card__right">
-      <h4 class="mark-card__title">Kvėdarnos apžvalgos bokštas</h4>
+      <h4 class="mark-card__title">{{ title }}</h4>
       <p class="mark-card__description">
-        Kvėdarna is a town in Šilalė district municipality, Tauragė County,
-        Lithuania. According to the 2011 census, the town has a population of
-        1,597 people.
+        {{ descr }}
       </p>
       <div class="mark-card__button">
         <button class="btn-red">Pasižymėti objektą</button>
@@ -21,6 +19,17 @@
 <script>
 export default {
   name: 'mark-card',
+  data() {
+    return {}
+  },
+  props: {
+    mark: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+  },
 }
 </script>
 
