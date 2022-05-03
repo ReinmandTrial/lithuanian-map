@@ -3,7 +3,7 @@
   <div class="map">
     <div class="map__wrap">
       <img src="@/assets/images/map.png" alt="map" />
-      <v-mark :marks="marks" />
+      <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
       <div class="marks-filter">
         <div
           class="marks-filter__item"
@@ -54,57 +54,6 @@ export default {
   name: 'mapSvg',
   data() {
     return {
-      marks: [
-        {
-          id: 1,
-          type: 'games',
-          markAxysX: 21.169801,
-          markAxysY: 55.720985,
-          title: 'Kvėdarnos apžvalgos bokštas',
-          descr:
-            'Kvėdarna is a town in Šilalė district municipality, Tauragė County, Lithuania. According to the 2011 census, the town has a population of 1,597 people.',
-        },
-        {
-          id: 2,
-          type: 'food',
-          markAxysX: 21.996693,
-          markAxysY: 55.396987,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 3,
-          type: 'buildings',
-          markAxysX: 22.996693,
-          markAxysY: 54.99,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 4,
-          type: 'nature',
-          markAxysX: 22.2,
-          markAxysY: 55.1,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 5,
-          type: 'food',
-          markAxysX: 22.996693,
-          markAxysY: 55.6987,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 6,
-          type: 'books',
-          markAxysX: 20.996693,
-          markAxysY: 55.7,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-      ],
       filter: [
         {
           id: 1,
@@ -133,6 +82,20 @@ export default {
         },
       ],
     }
+  },
+  props: {
+    selectedObjects: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    marks: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
   },
   components: {
     'v-mark': Mark,
@@ -215,6 +178,10 @@ export default {
           markItem.classList.remove('not-hover')
         })
       }
+    },
+    addCardToSelected: function (data) {
+      this.$emit('addCardToSelected', data)
+      // console.log(data)
     },
 
     // translateMap: function (e, posXStart, posYStart) {

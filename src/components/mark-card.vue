@@ -4,12 +4,14 @@
       <img src="@/assets/images/card-img.jpg" alt="" />
     </div>
     <div class="mark-card__right">
-      <h4 class="mark-card__title">{{ title }}</h4>
+      <h4 class="mark-card__title">{{ mark.title }}</h4>
       <p class="mark-card__description">
-        {{ descr }}
+        {{ mark.descr }}
       </p>
       <div class="mark-card__button">
-        <button class="btn-red">Pasižymėti objektą</button>
+        <button class="btn-red" v-on:click.stop="addCardToSelected">
+          Pasižymėti objektą
+        </button>
         <button class="btn-border">Naviguoti</button>
       </div>
     </div>
@@ -24,10 +26,20 @@ export default {
   },
   props: {
     mark: {
-      type: Array,
+      type: Object,
       default() {
-        return []
+        return {}
       },
+    },
+  },
+  methods: {
+    addCardToSelected: function (event) {
+      this.$emit('addCardToSelected', {
+        thisMark: this.mark,
+        thisEvent: event,
+        btn: this.$el,
+        thisElem: this,
+      })
     },
   },
 }

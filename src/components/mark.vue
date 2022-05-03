@@ -10,22 +10,7 @@
       }"
     >
       <mark-btn :mark="mark" @click.native="showCard" />
-
-      <div class="mark-card">
-        <div class="mark-card__left">
-          <img src="@/assets/images/card-img.jpg" alt="" />
-        </div>
-        <div class="mark-card__right">
-          <h4 class="mark-card__title">{{ mark.title }}</h4>
-          <p class="mark-card__description">
-            {{ mark.descr }}
-          </p>
-          <div class="mark-card__button">
-            <button class="btn-red">Pasižymėti objektą</button>
-            <button class="btn-border">Naviguoti</button>
-          </div>
-        </div>
-      </div>
+      <mark-card :mark="mark" @addCardToSelected="addCardToSelected" />
     </div>
   </div>
 </template>
@@ -33,11 +18,13 @@
 <script>
 import ClickOutside from 'vue-click-outside'
 import MarkBtn from './mark-btn.vue'
+import MarkCard from './mark-card.vue'
 
 export default {
   name: 'v-mark',
   components: {
     'mark-btn': MarkBtn,
+    'mark-card': MarkCard,
   },
   data() {
     return {
@@ -45,6 +32,12 @@ export default {
     }
   },
   props: {
+    selectedObjects: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
     marks: {
       type: Array,
       default() {
@@ -84,6 +77,9 @@ export default {
       })
       event.target.closest('.mark').classList.add('active')
     },
+    addCardToSelected: function (data) {
+      this.$emit('addCardToSelected', data)
+    },
   },
   directives: {
     ClickOutside,
@@ -95,24 +91,35 @@ export default {
 .mark {
   transform: translate(-50%, -50%);
   position: absolute;
-  z-index: 20;
+  z-index: 10;
   cursor: pointer;
   &.active {
+    z-index: 30;
     .mark-card {
-      display: flex;
+      // display: flex;
+
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }
 .mark-btn {
+  transition-delay: 0.2s;
+  &.active {
+    transition-delay: 0s;
+  }
   &:hover {
     background: #db3831;
+    transition-delay: 0s;
   }
   &.not-hover:not(&.active) {
     background: #ced4d1 !important;
+    transition-delay: 0s;
   }
   &.not-active:not(&.active) {
     background: #ced4d1 !important;
     transform: scale(0);
+    transition-delay: 0s;
   }
 }
 .mark-card {
@@ -129,7 +136,11 @@ export default {
   left: 0;
   bottom: calc(100% + 5px);
   column-gap: 15px;
-  display: none;
+  // display: none;
+  opacity: 0.5;
+  transform: scale(0);
+  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform-origin: left bottom;
   &__left {
     width: 99px;
     align-self: stretch;

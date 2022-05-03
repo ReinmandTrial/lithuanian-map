@@ -1,6 +1,11 @@
 <template>
   <button type="button" class="selected-marks">
-    <span class="selected-marks__counter">{{ count }}</span>
+    <span
+      class="selected-marks__counter"
+      :class="{ active: this.selectedObjects.length > 0 }"
+    >
+      {{ amountObjects() }}
+    </span>
     <div class="selected-marks__icon">
       <svg
         width="32"
@@ -23,8 +28,31 @@ export default {
   name: 'MarksAmount',
   data() {
     return {
-      count: 0,
+      // count: 0,
     }
+  },
+  props: {
+    selectedObjects: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+  },
+  methods: {
+    amountObjects: function () {
+      const objectsLength = this.selectedObjects.length
+      if (objectsLength > 9) {
+        return '9+'
+      } else {
+        return objectsLength
+      }
+    },
+  },
+  computed: {
+    // amountObjects: function () {
+    //   return this.selectedObjects.length
+    // },
   },
 }
 </script>
@@ -56,6 +84,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    &.active {
+      background: #db3831;
+    }
   }
 
   &__icon {
