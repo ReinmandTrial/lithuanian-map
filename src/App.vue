@@ -47,92 +47,108 @@
         </button>
       </div>
 
-      <div class="burger" :class="{ openBurger }">
-        <div class="burger__content">
-          <button
-            type="button"
-            class="burger__btn-close"
-            @click="openBurger = !openBurger"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M24 8L8 24"
-                stroke="#00404E"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M8 8L24 24"
-                stroke="#00404E"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-          <ul class="burger__list">
-            <li class="burger__item">
-              <a href="#" class="burger__link">Vėtrungių kelias</a>
-            </li>
-            <li class="burger__item">
-              <a href="#" class="burger__link">Mažoji Lietuva</a>
-            </li>
-            <li class="burger__item">
-              <a href="#" class="burger__link">Kontaktai</a>
-            </li>
-          </ul>
-          <div class="burger__socials">
-            <a href="#" target="_blank" class="burger__social-link">
-              <svg
-                width="34"
-                height="34"
-                viewBox="0 0 34 34"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M31.5479 0H2.4521C1.09778 0 0 1.09778 0 2.4521V31.5479C0 32.9022 1.09778 34 2.4521 34H18.1621V20.8516H13.7461V15.7051H18.1621V11.9176C18.1621 7.52544 20.8435 5.13481 24.7615 5.13481C26.638 5.13481 28.2507 5.27463 28.7207 5.33714V9.92773H26.0191C23.8873 9.92773 23.4746 10.9407 23.4746 12.4273V15.7051H28.5713L27.9072 20.8516H23.4746V34H31.5479C32.9022 34 34 32.9022 34 31.5479V2.4521C34 1.09778 32.9022 0 31.5479 0Z"
-                  fill="#00404E"
-                />
-              </svg>
-            </a>
-            <a href="#" target="_blank" class="burger__social-link">
-              <svg
-                width="34"
-                height="34"
-                viewBox="0 0 34 34"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M33.6613 10.1998C33.6613 10.1998 33.3293 7.85566 32.3066 6.82637C31.0117 5.47168 29.5641 5.46504 28.9 5.38535C24.1453 5.04004 17.0066 5.04004 17.0066 5.04004H16.9934C16.9934 5.04004 9.85469 5.04004 5.1 5.38535C4.43594 5.46504 2.98828 5.47168 1.69336 6.82637C0.670703 7.85566 0.345312 10.1998 0.345312 10.1998C0.345312 10.1998 0 12.9557 0 15.7049V18.2814C0 21.0307 0.338672 23.7865 0.338672 23.7865C0.338672 23.7865 0.670703 26.1307 1.68672 27.16C2.98164 28.5146 4.68164 28.4682 5.43867 28.6143C8.16133 28.8732 17 28.9529 17 28.9529C17 28.9529 24.1453 28.9396 28.9 28.601C29.5641 28.5213 31.0117 28.5146 32.3066 27.16C33.3293 26.1307 33.6613 23.7865 33.6613 23.7865C33.6613 23.7865 34 21.0373 34 18.2814V15.7049C34 12.9557 33.6613 10.1998 33.6613 10.1998ZM13.4871 21.4092V11.8533L22.6711 16.6479L13.4871 21.4092Z"
-                  fill="#00404E"
-                />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="burger__cloud burger__cloud-top-left">
-          <img src="@/assets/images/cloud-top-left.svg" alt="cloud" />
-        </div>
-        <div class="burger__cloud burger__cloud-bottom-left">
-          <img src="@/assets/images/cloud-bottom-left.svg" alt="cloud" />
-        </div>
-        <div class="burger__cloud burger__cloud-right-center">
-          <img src="@/assets/images/cloud-right-center.svg" alt="cloud" />
-        </div>
-      </div>
       <popup-selected-objects
         :selectedObjects="selectedObjects"
         @addCardToSelected="addCardToSelected"
       />
+    </div>
+    <div class="burger" :class="{ openBurger }">
+      <div class="burger__content">
+        <button
+          type="button"
+          class="burger__btn-close"
+          @click="openBurger = !openBurger"
+        >
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M24 8L8 24"
+              stroke="#00404E"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8 8L24 24"
+              stroke="#00404E"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <ul class="burger__list">
+          <li class="burger__item">
+            <a
+              href="#"
+              class="burger__link"
+              @click="
+                {
+                  homeIsOpen = true
+                }
+                {
+                  openBurger = !openBurger
+                }
+              "
+            >
+              Pagrindinis
+            </a>
+          </li>
+          <li class="burger__item">
+            <a href="#" class="burger__link">Vėtrungių kelias</a>
+          </li>
+          <li class="burger__item">
+            <a href="#" class="burger__link">Mažoji Lietuva</a>
+          </li>
+          <li class="burger__item">
+            <a href="#" class="burger__link">Kontaktai</a>
+          </li>
+        </ul>
+        <div class="burger__socials">
+          <a href="#" target="_blank" class="burger__social-link">
+            <svg
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M31.5479 0H2.4521C1.09778 0 0 1.09778 0 2.4521V31.5479C0 32.9022 1.09778 34 2.4521 34H18.1621V20.8516H13.7461V15.7051H18.1621V11.9176C18.1621 7.52544 20.8435 5.13481 24.7615 5.13481C26.638 5.13481 28.2507 5.27463 28.7207 5.33714V9.92773H26.0191C23.8873 9.92773 23.4746 10.9407 23.4746 12.4273V15.7051H28.5713L27.9072 20.8516H23.4746V34H31.5479C32.9022 34 34 32.9022 34 31.5479V2.4521C34 1.09778 32.9022 0 31.5479 0Z"
+                fill="#00404E"
+              />
+            </svg>
+          </a>
+          <a href="#" target="_blank" class="burger__social-link">
+            <svg
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M33.6613 10.1998C33.6613 10.1998 33.3293 7.85566 32.3066 6.82637C31.0117 5.47168 29.5641 5.46504 28.9 5.38535C24.1453 5.04004 17.0066 5.04004 17.0066 5.04004H16.9934C16.9934 5.04004 9.85469 5.04004 5.1 5.38535C4.43594 5.46504 2.98828 5.47168 1.69336 6.82637C0.670703 7.85566 0.345312 10.1998 0.345312 10.1998C0.345312 10.1998 0 12.9557 0 15.7049V18.2814C0 21.0307 0.338672 23.7865 0.338672 23.7865C0.338672 23.7865 0.670703 26.1307 1.68672 27.16C2.98164 28.5146 4.68164 28.4682 5.43867 28.6143C8.16133 28.8732 17 28.9529 17 28.9529C17 28.9529 24.1453 28.9396 28.9 28.601C29.5641 28.5213 31.0117 28.5146 32.3066 27.16C33.3293 26.1307 33.6613 23.7865 33.6613 23.7865C33.6613 23.7865 34 21.0373 34 18.2814V15.7049C34 12.9557 33.6613 10.1998 33.6613 10.1998ZM13.4871 21.4092V11.8533L22.6711 16.6479L13.4871 21.4092Z"
+                fill="#00404E"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="burger__cloud burger__cloud-top-left">
+        <img src="@/assets/images/cloud-top-left.svg" alt="cloud" />
+      </div>
+      <div class="burger__cloud burger__cloud-bottom-left">
+        <img src="@/assets/images/cloud-bottom-left.svg" alt="cloud" />
+      </div>
+      <div class="burger__cloud burger__cloud-right-center">
+        <img src="@/assets/images/cloud-right-center.svg" alt="cloud" />
+      </div>
     </div>
   </div>
 </template>
