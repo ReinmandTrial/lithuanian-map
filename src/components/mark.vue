@@ -97,7 +97,6 @@ export default {
     z-index: 30;
     .mark-card {
       // display: flex;
-
       opacity: 1;
       transform: scale(1);
     }

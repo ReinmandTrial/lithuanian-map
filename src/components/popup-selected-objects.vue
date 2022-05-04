@@ -108,14 +108,23 @@ export default {
   height: 100vh;
   overflow-y: auto;
   z-index: 50;
-  display: none;
+  // display: none;
+  visibility: hidden;
+
   &.active {
-    display: block;
+    // display: block;
+    visibility: visible;
+    .popup-selected-objects__content {
+      transform: translateY(0vh);
+      opacity: 1;
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
   }
   &__body {
     width: 100%;
     min-height: 100vh;
     display: flex;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     padding: 30px 40px;
@@ -123,6 +132,9 @@ export default {
   }
 
   &__content {
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    opacity: 0;
+    transform: translateY(100vh);
     background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     border-radius: 20px;

@@ -225,28 +225,8 @@ export default {
       console.log(this.openBurger)
     },
     addCardToSelected: function (data) {
-      var myArray = this.selectedObjects
-      var myIndex = myArray.indexOf(data.thisMark)
-
-      // var card = data.thisEvent.target.closest('.mark-card')
-      // var counter = document.querySelector('.selected-marks__counter')
-
-      // var cardX = card.getBoundingClientRect().left
-      // var cardY = card.getBoundingClientRect().bottom
-      // var cardHeight = card.getBoundingClientRect().height
-      // var counterX = counter.getBoundingClientRect().left
-      // var counterY = counter.getBoundingClientRect().bottom
-
-      // var newCardX = counterX - cardX + 'px'
-      // var newCardY = counterY + cardY - cardHeight + 'px'
-
-      // console.log(counterY)
-
-      // card.style.left = newCardX
-      // card.style.bottom = newCardY
-
-      // var oldCardX = card.offsetTop
-      // console.log(oldCardX)
+      let myArray = this.selectedObjects
+      let myIndex = myArray.indexOf(data.thisMark)
 
       if (myIndex !== -1) {
         myArray.splice(myIndex, 1)
@@ -256,6 +236,37 @@ export default {
         myArray.push(data.thisMark)
         data.thisEvent.target.closest('.btn-red').innerHTML =
           'Atsižymėti objektą'
+
+        let card = data.thisEvent.target.closest('.mark-card')
+        let counter = document.querySelector('.selected-marks__counter')
+        const oldValueLeft = getComputedStyle(card).left
+        const oldValueBottom = getComputedStyle(card).bottom
+
+        let cardX = card.getBoundingClientRect().left
+        let cardY = card.getBoundingClientRect().bottom
+        let cardHeight = card.getBoundingClientRect().height
+        let counterX = counter.getBoundingClientRect().left
+        let counterY = counter.getBoundingClientRect().bottom
+        let markBtn = document.querySelector('.mark-btn')
+        let markBtnHeight = markBtn.getBoundingClientRect().height
+        let oldCardX = card.offsetTop
+
+        let distanceFromMark = oldCardX + cardHeight
+
+        let newCardX = counterX - cardX + 'px'
+        let newCardY =
+          cardY - counterY - distanceFromMark + markBtnHeight + 'px'
+
+        card.style.left = newCardX
+        card.style.bottom = newCardY
+        card.closest('.mark').classList.remove('active')
+
+        // console.log(oldValueX)
+
+        setTimeout(function () {
+          card.style.left = oldValueLeft
+          card.style.bottom = oldValueBottom
+        }, 300)
       }
     },
   },
@@ -316,8 +327,8 @@ export default {
   display: flex;
   justify-content: center;
   padding: 30px 130px;
-  transition: 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.1);
   top: 100vh;
+  transition: 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.1);
   &.openBurger {
     top: 0vh;
     .burger__content {
