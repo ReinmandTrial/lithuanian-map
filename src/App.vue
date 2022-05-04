@@ -166,7 +166,7 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      homeIsOpen: false,
+      homeIsOpen: true,
       marks: [
         {
           id: 1,
