@@ -166,13 +166,13 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      homeIsOpen: true,
+      homeIsOpen: false,
       marks: [
         {
           id: 1,
           type: 'games',
-          markAxysX: 21.169801,
-          markAxysY: 55.720985,
+          markAxysX: 21.1691,
+          markAxysY: 55.920985,
           title: 'Kvėdarnos apžvalgos bokštas',
           descr:
             'Kvėdarna is a town in Šilalė district municipality, Tauragė County, Lithuania. According to the 2011 census, the town has a population of 1,597 people.',
@@ -212,8 +212,8 @@ export default {
         {
           id: 6,
           type: 'books',
-          markAxysX: 20.996693,
-          markAxysY: 55.7,
+          markAxysX: 21.05,
+          markAxysY: 55.5,
           title: 'Town5',
           descr: ' Lorem ipsum dolor sit amet.',
         },

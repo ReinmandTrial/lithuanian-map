@@ -2,7 +2,51 @@
   <!-- <div class="map" v-on:mousedown="mousedownMap"> -->
   <div class="map">
     <div class="map__wrap">
-      <img src="@/assets/images/map.png" alt="map" />
+      <img src="@/assets/images/Base_Map_SVG.svg" alt="map" />
+      <div class="map__jacht-1">
+        <img
+          src="@/assets/images/anim-targets/Meridianas_SVG.svg"
+          alt="Jacht"
+        />
+      </div>
+      <div class="map__jacht-2">
+        <img src="@/assets/images/anim-targets/Jachta_SVG.svg" alt="Jacht" />
+      </div>
+      <div class="map__jacht-3">
+        <img src="@/assets/images/anim-targets/Jachta2_SVG.svg" alt="Jacht" />
+      </div>
+      <div class="map__jacht-4">
+        <img src="@/assets/images/anim-targets/Valtis_SVG.svg" alt="Jacht" />
+      </div>
+      <div class="map__klaipeda">
+        <img src="@/assets/images/buildings/Klaipeda_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Klaipėda</p>
+      </div>
+      <div class="map__gargzdai">
+        <img src="@/assets/images/buildings/Gargzdai_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Gargzdai</p>
+      </div>
+      <div class="map__jurbarkas">
+        <img src="@/assets/images/buildings/Jurbarkas_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Jurbarkas</p>
+      </div>
+      <div class="map__nida">
+        <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Nida</p>
+      </div>
+      <div class="map__pagegiai">
+        <img src="@/assets/images/buildings/Pagegiai_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Pagegiai</p>
+      </div>
+      <div class="map__silute">
+        <img src="@/assets/images/buildings/Silute_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Silute</p>
+      </div>
+      <div class="map__taurage">
+        <img src="@/assets/images/buildings/Taurage_SVG.svg" alt="Jacht" />
+        <p class="map__town-name">Taurage</p>
+      </div>
+
       <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
       <div class="marks-filter">
         <div
@@ -181,7 +225,6 @@ export default {
     },
     addCardToSelected: function (data) {
       this.$emit('addCardToSelected', data)
-      // console.log(data)
     },
 
     // translateMap: function (e, posXStart, posYStart) {
@@ -250,13 +293,170 @@ export default {
     height: 0;
     position: relative;
   }
-  img {
+
+  &__wrap > img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  &__town-name {
+    font-size: 8px;
+    padding: 1px;
+    text-transform: uppercase;
+    line-height: 1;
+    background: #bb6351;
+    width: fit-content;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 95%;
+    color: #ffffff;
+  }
+  @keyframes jacht-rotate {
+    25% {
+      transform: rotate(5deg);
+    }
+    75% {
+      transform: rotate(-5deg);
+    }
+  }
+  @keyframes yacht-to-left {
+    5% {
+      transform: translate(-60%, -60%) scaleX(1);
+    }
+
+    49% {
+      transform: translate(-240%, -120%) scaleX(1);
+    }
+    50% {
+      transform: translate(-250%, -130%) scaleX(0);
+    }
+    51% {
+      transform: translate(-250%, -120%) scaleX(-1);
+    }
+    95% {
+      transform: translate(-60%, -60%) scaleX(-1);
+    }
+  }
+  @keyframes yacht-to-circle {
+  }
+
+  &__jacht-1 {
+    position: absolute;
+    top: 34.33%;
+    left: 15.29%;
+    width: 9.09%;
+    transform: translate(-50%, -50%);
+    transform-origin: center bottom;
+    animation: yacht-to-left 40s linear infinite;
+    img {
+      animation: jacht-rotate 5s linear infinite;
+    }
+  }
+  &__jacht-2 {
+    position: absolute;
+    top: 51.33%;
+    left: 7.29%;
+    width: 11.29%;
+    transform: translate(-50%, -50%);
+    transform-origin: center bottom;
+    img {
+      animation: jacht-rotate 4s linear infinite;
+    }
+  }
+  &__jacht-3 {
+    position: absolute;
+    top: 66.73%;
+    left: 21.69%;
+    width: 8.69%;
+    transform: translate(-50%, -50%);
+    transform-origin: center bottom;
+    img {
+      animation: jacht-rotate 4s linear infinite;
+    }
+  }
+  &__jacht-4 {
+    position: absolute;
+    top: 77.73%;
+    left: 15.29%;
+    width: 5.69%;
+    transform: translate(-50%, -50%);
+    transform-origin: center bottom;
+    img {
+      animation: jacht-rotate 3s linear infinite;
+    }
+  }
+  &__klaipeda {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 31.3%;
+    left: 20.6%;
+    width: 11.7%;
+  }
+  &__gargzdai {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 31.6%;
+    left: 28%;
+    width: 11.7%;
+    .map__town-name {
+      top: 85%;
+    }
+  }
+  &__jurbarkas {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 84.6%;
+    left: 65.6%;
+    width: 11.8%;
+    .map__town-name {
+      top: 85%;
+      transform: translateX(-60%);
+    }
+  }
+  &__nida {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 64.6%;
+    left: 16.3%;
+    width: 13.8%;
+    .map__town-name {
+      top: 95%;
+    }
+  }
+  &__pagegiai {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 79%;
+    left: 43.3%;
+    width: 11.5%;
+    .map__town-name {
+      top: 99%;
+    }
+  }
+  &__silute {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 62.8%;
+    left: 32.6%;
+    width: 11.5%;
+    .map__town-name {
+      top: 81%;
+      transform: translateX(-110%);
+    }
+  }
+  &__taurage {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 72%;
+    left: 54.7%;
+    width: 13.5%;
+    .map__town-name {
+      top: 78%;
+    }
   }
 }
 .marks-filter {
