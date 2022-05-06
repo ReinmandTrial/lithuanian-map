@@ -9,44 +9,99 @@
           alt="Jacht"
         />
       </div>
-      <div class="map__jacht-2">
-        <img src="@/assets/images/anim-targets/Jachta_SVG.svg" alt="Jacht" />
+      <div class="map__jachts">
+        <div class="map__jacht-2">
+          <img src="@/assets/images/anim-targets/Jachta_SVG.svg" alt="Jacht" />
+        </div>
+        <div class="map__jacht-3">
+          <img src="@/assets/images/anim-targets/Jachta2_SVG.svg" alt="Jacht" />
+        </div>
+        <div class="map__jacht-4">
+          <img src="@/assets/images/anim-targets/Valtis_SVG.svg" alt="Jacht" />
+        </div>
       </div>
-      <div class="map__jacht-3">
-        <img src="@/assets/images/anim-targets/Jachta2_SVG.svg" alt="Jacht" />
+      <div class="map__towns">
+        <div class="map__klaipeda">
+          <img src="@/assets/images/buildings/Klaipeda_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Klaipėda</p>
+        </div>
+        <div class="map__gargzdai">
+          <img src="@/assets/images/buildings/Gargzdai_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Gargzdai</p>
+        </div>
+        <div class="map__jurbarkas">
+          <img src="@/assets/images/buildings/Jurbarkas_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Jurbarkas</p>
+        </div>
+        <div class="map__nida">
+          <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Nida</p>
+        </div>
+        <div class="map__pagegiai">
+          <img src="@/assets/images/buildings/Pagegiai_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Pagegiai</p>
+        </div>
+        <div class="map__silute">
+          <img src="@/assets/images/buildings/Silute_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Silute</p>
+        </div>
+        <div class="map__taurage">
+          <img src="@/assets/images/buildings/Taurage_SVG.svg" alt="Jacht" />
+          <p class="map__town-name">Taurage</p>
+        </div>
       </div>
-      <div class="map__jacht-4">
-        <img src="@/assets/images/anim-targets/Valtis_SVG.svg" alt="Jacht" />
+      <div class="map__clouds">
+        <div class="map__cloud-1">
+          <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+        </div>
+        <div class="map__cloud-2">
+          <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+        </div>
+        <div class="map__cloud-3">
+          <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+        </div>
+        <div class="map__cloud-4">
+          <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+        </div>
       </div>
-      <div class="map__klaipeda">
-        <img src="@/assets/images/buildings/Klaipeda_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Klaipėda</p>
+      <div class="map__windmills">
+        <div class="map__windmill-1">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-2">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-3">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-4">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-5">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-6">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
       </div>
-      <div class="map__gargzdai">
-        <img src="@/assets/images/buildings/Gargzdai_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Gargzdai</p>
-      </div>
-      <div class="map__jurbarkas">
-        <img src="@/assets/images/buildings/Jurbarkas_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Jurbarkas</p>
-      </div>
-      <div class="map__nida">
-        <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Nida</p>
-      </div>
-      <div class="map__pagegiai">
-        <img src="@/assets/images/buildings/Pagegiai_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Pagegiai</p>
-      </div>
-      <div class="map__silute">
-        <img src="@/assets/images/buildings/Silute_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Silute</p>
-      </div>
-      <div class="map__taurage">
-        <img src="@/assets/images/buildings/Taurage_SVG.svg" alt="Jacht" />
-        <p class="map__town-name">Taurage</p>
-      </div>
-
       <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
       <div class="marks-filter">
         <div
@@ -314,7 +369,118 @@ export default {
     left: 50%;
     top: 95%;
     color: #ffffff;
+    cursor: default;
   }
+  @keyframes cloudX {
+    50% {
+      transform: translateX(-100vw);
+    }
+    50.001% {
+      transform: translateX(100vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  &__windmill-1 {
+    position: absolute;
+    width: 5%;
+    transform: translate(-50%, -50%) rotate(40deg);
+    left: 30.4%;
+    top: 12.2%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__windmill-2 {
+    position: absolute;
+    width: 6%;
+    transform: translate(-50%, -50%) rotate(410deg);
+    left: 32%;
+    top: 10.7%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__windmill-3 {
+    position: absolute;
+    width: 5%;
+    transform: translate(-50%, -50%) rotate(80deg);
+    left: 33.8%;
+    top: 12.4%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__windmill-4 {
+    position: absolute;
+    width: 7%;
+    transform: translate(-50%, -50%) rotate(210deg);
+    left: 52.1%;
+    top: 41.3%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__windmill-5 {
+    position: absolute;
+    width: 9.7%;
+    transform: translate(-50%, -50%) rotate(62deg);
+    left: 54.5%;
+    top: 38.3%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__windmill-6 {
+    position: absolute;
+    width: 7%;
+    transform: translate(-50%, -50%) rotate(23deg);
+    left: 57.15%;
+    top: 41.4%;
+    img {
+      animation: rotate 3s linear infinite;
+    }
+  }
+  &__cloud-1 {
+    position: absolute;
+    width: 13%;
+    top: 45%;
+    left: 71%;
+    animation: cloudX 50s linear infinite;
+    z-index: 2;
+  }
+  &__cloud-2 {
+    position: absolute;
+    width: 11%;
+    top: 65%;
+    left: 1%;
+    animation: cloudX 90s linear infinite;
+    z-index: 2;
+  }
+  &__cloud-3 {
+    position: absolute;
+    width: 18%;
+    top: 26%;
+    left: 10%;
+
+    animation: cloudX 130s linear infinite;
+    z-index: 2;
+  }
+  &__cloud-4 {
+    position: absolute;
+    width: 11%;
+    top: 16%;
+    left: 55%;
+    animation: cloudX 66s linear infinite;
+    z-index: 2;
+  }
+
   @keyframes jacht-rotate {
     25% {
       transform: rotate(5deg);
@@ -353,7 +519,7 @@ export default {
     transform-origin: center bottom;
     animation: yacht-to-left 40s linear infinite;
     img {
-      animation: jacht-rotate 5s linear infinite;
+      animation: jacht-rotate 4s linear infinite;
     }
   }
   &__jacht-2 {
