@@ -25,11 +25,13 @@
 	.st8{fill:#919090;}
 	.st9{fill:#474B4B;}
 </style>
+	
 <switch>
 	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
 		<i:pgfRef  xlink:href="#adobe_illustrator_pgf">
 		</i:pgfRef>
 	</foreignObject>
+	
 	<g i:extraneous="self">
 		<g id="XMLID_1_">
 			<path id="XMLID_3_" class="st0" d="M548,540"/>
@@ -131,7 +133,9 @@
 				c-16.3,1.2-31-8.6-35.7-23.9c-4.8-15.3,1.3-31.7,14.9-40c1.7-1,3.4-2,5.2-3C707.1,266.7,717.7,267.8,727.8,273.2z"/>
 			<path id="XMLID_71_" class="st9" d="M719.2,302c0,5.5-4.3,9.8-9.8,9.8c-5.4,0-9.7-4.4-9.7-9.9c0-5.5,4.3-9.8,9.7-9.8
 				C714.9,292.1,719.2,296.5,719.2,302z"/>
+		
 		</g>
+		 
 	</g>
 </switch>
 <i:pgf  id="adobe_illustrator_pgf">

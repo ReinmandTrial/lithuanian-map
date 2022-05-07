@@ -9,6 +9,7 @@
           alt="Jacht"
         />
       </div>
+
       <div class="map__jachts">
         <div class="map__jacht-2">
           <img src="@/assets/images/anim-targets/Jachta_SVG.svg" alt="Jacht" />
@@ -18,6 +19,58 @@
         </div>
         <div class="map__jacht-4">
           <img src="@/assets/images/anim-targets/Valtis_SVG.svg" alt="Jacht" />
+        </div>
+      </div>
+      <div class="map__roads">
+        <div class="map__road-A1">
+          <img src="@/assets/images/roads/a1--.svg" alt="" />
+        </div>
+        <div class="map__road-e272">
+          <img src="@/assets/images/roads/E272-t.svg" alt="" />
+        </div>
+        <div class="map__road-e77">
+          <img src="@/assets/images/roads/E77.svg" alt="" />
+        </div>
+        <div class="map__road-gr">
+          <img src="@/assets/images/roads/gr.svg" alt="" />
+        </div>
+      </div>
+      <div class="map__windmills">
+        <div class="map__windmill-1">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-2">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-3">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-4">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-5">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
+        </div>
+        <div class="map__windmill-6">
+          <img
+            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+            alt=""
+          />
         </div>
       </div>
       <div class="map__towns">
@@ -62,44 +115,6 @@
         </div>
         <div class="map__cloud-4">
           <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
-        </div>
-      </div>
-      <div class="map__windmills">
-        <div class="map__windmill-1">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
-        </div>
-        <div class="map__windmill-2">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
-        </div>
-        <div class="map__windmill-3">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
-        </div>
-        <div class="map__windmill-4">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
-        </div>
-        <div class="map__windmill-5">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
-        </div>
-        <div class="map__windmill-6">
-          <img
-            src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-            alt=""
-          />
         </div>
       </div>
       <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
@@ -386,6 +401,32 @@ export default {
     100% {
       transform: rotate(360deg);
     }
+  }
+  &__road-A1 {
+    position: absolute;
+    top: 21.4%;
+    left: 21.6%;
+    width: 74.7%;
+    height: 30%;
+  }
+  &__road-e272 {
+    position: absolute;
+    top: 2.1%;
+    left: 15.4%;
+    width: 85.7%;
+    height: 30%;
+  }
+  &__road-e77 {
+    position: absolute;
+    top: -2.5%;
+    left: 35.2%;
+    width: 52.7%;
+  }
+  &__road-gr {
+    position: absolute;
+    top: 28%;
+    left: 17.8%;
+    width: 54.7%;
   }
   &__windmill-1 {
     position: absolute;

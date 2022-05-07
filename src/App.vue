@@ -465,6 +465,7 @@ export default {
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
+  z-index: 15;
   &__plus {
     display: block;
     width: 32px;
