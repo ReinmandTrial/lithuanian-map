@@ -402,6 +402,11 @@ export default {
       transform: rotate(360deg);
     }
   }
+  &__roads {
+    img {
+      width: 100%;
+    }
+  }
   &__road-A1 {
     position: absolute;
     top: 21.4%;
@@ -427,6 +432,12 @@ export default {
     top: 28%;
     left: 17.8%;
     width: 54.7%;
+  }
+
+  &__windmills {
+    img {
+      width: 100%;
+    }
   }
   &__windmill-1 {
     position: absolute;
@@ -486,6 +497,12 @@ export default {
     top: 41.4%;
     img {
       animation: rotate 3s linear infinite;
+    }
+  }
+
+  &__clouds {
+    img {
+      width: 100%;
     }
   }
   &__cloud-1 {
@@ -551,6 +568,11 @@ export default {
   @keyframes yacht-to-circle {
   }
 
+  &__jachts {
+    img {
+      width: 100%;
+    }
+  }
   &__jacht-1 {
     position: absolute;
     top: 34.33%;
@@ -594,6 +616,12 @@ export default {
     transform-origin: center bottom;
     img {
       animation: jacht-rotate 3s linear infinite;
+    }
+  }
+
+  &__towns {
+    img {
+      width: 100%;
     }
   }
   &__klaipeda {

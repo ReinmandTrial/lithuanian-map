@@ -1,12 +1,46 @@
 <template>
   <div id="app">
-    <home-page
-      v-if="homeIsOpen"
+    <all-pages
+      v-if="pagesIsOpen"
+      :homeIsOpen="homeIsOpen"
+      :contactsIsOpen="contactsIsOpen"
+      :littleLithuaniaIsOpen="littleLithuaniaIsOpen"
+      :vaneRoadIsOpen="vaneRoadIsOpen"
+      @openMap="closePages"
+      @openHomeFromHeader="
+        {
+          closePages()
+        }
+        {
+          pagesIsOpen = true
+        }
+        {
+          homeIsOpen = true
+        }
+      "
       @OpenBurgerFromHome="openBurger = !openBurger"
-      @showHome="homeIsOpen = !homeIsOpen"
+      @openContactsFromHome="
+        {
+          homeIsOpen = false
+        }
+        {
+          contactsIsOpen = true
+        }
+      "
     />
-    <div v-if="!homeIsOpen" class="map">
-      <button type="button" @click="homeIsOpen = !homeIsOpen" class="logo">
+    <div v-if="!pagesIsOpen" class="map">
+      <button
+        type="button"
+        @click="
+          {
+            pagesIsOpen = true
+          }
+          {
+            homeIsOpen = true
+          }
+        "
+        class="logo"
+      >
         <img src="@/assets/images/logo.svg" alt="Logo" />
       </button>
       <div class="options">
@@ -89,6 +123,12 @@
               class="burger__link"
               @click="
                 {
+                  closePages()
+                }
+                {
+                  pagesIsOpen = true
+                }
+                {
                   homeIsOpen = true
                 }
                 {
@@ -100,13 +140,70 @@
             </a>
           </li>
           <li class="burger__item">
-            <a href="#" class="burger__link">Vėtrungių kelias</a>
+            <a
+              href="#"
+              class="burger__link"
+              @click="
+                {
+                  closePages()
+                }
+                {
+                  pagesIsOpen = true
+                }
+                {
+                  vaneRoadIsOpen = true
+                }
+                {
+                  openBurger = !openBurger
+                }
+              "
+            >
+              Vėtrungių kelias
+            </a>
           </li>
           <li class="burger__item">
-            <a href="#" class="burger__link">Mažoji Lietuva</a>
+            <a
+              href="#"
+              class="burger__link"
+              @click="
+                {
+                  closePages()
+                }
+                {
+                  pagesIsOpen = true
+                }
+                {
+                  littleLithuaniaIsOpen = true
+                }
+                {
+                  openBurger = !openBurger
+                }
+              "
+            >
+              Mažoji Lietuva
+            </a>
           </li>
           <li class="burger__item">
-            <a href="#" class="burger__link">Kontaktai</a>
+            <a
+              href="#"
+              class="burger__link"
+              @click="
+                {
+                  closePages()
+                }
+                {
+                  pagesIsOpen = true
+                }
+                {
+                  contactsIsOpen = true
+                }
+                {
+                  openBurger = !openBurger
+                }
+              "
+            >
+              Kontaktai
+            </a>
           </li>
         </ul>
         <div class="burger__socials">
@@ -155,7 +252,7 @@
 
 <script>
 import '@/assets/scss/style.scss'
-import homePage from './components/homePage.vue'
+import allPages from './components/homePage.vue'
 import mapSvg from './components/map-svg.vue'
 import dropDown from './components/dropDown.vue'
 import marksSelected from './components/marksSelected.vue'
@@ -166,7 +263,11 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      homeIsOpen: false,
+      pagesIsOpen: true,
+      homeIsOpen: true,
+      contactsIsOpen: false,
+      littleLithuaniaIsOpen: false,
+      vaneRoadIsOpen: false,
       marks: [
         {
           id: 1,
@@ -221,7 +322,7 @@ export default {
     }
   },
   components: {
-    'home-page': homePage,
+    'all-pages': allPages,
     'map-svg': mapSvg,
     'v-dropdown': dropDown,
     'marks-selected': marksSelected,
@@ -231,8 +332,13 @@ export default {
     openPopup: function () {
       document.querySelector('.popup-selected-objects').classList.add('active')
     },
-    log: function () {
-      console.log('test')
+    closePages() {
+      this.homeIsOpen = false
+      this.contactsIsOpen = false
+      this.littleLithuaniaIsOpen = false
+      this.vaneRoadIsOpen = false
+
+      this.pagesIsOpen = false
     },
     closeBurger() {
       if (this.openBurger == true) {

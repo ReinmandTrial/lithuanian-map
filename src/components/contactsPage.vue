@@ -1,0 +1,302 @@
+<template>
+  <div class="contacts">
+    <header class="contacts__header header">
+      <div class="header__logo" @click="$emit('openHomeFromHeader')">
+        <img src="@/assets/images/logo-2.svg" alt="Logo" />
+      </div>
+
+      <button
+        type="button"
+        class="header__burger burger-btn"
+        @click="$emit('OpenBurgerFromHome')"
+      >
+        <svg
+          width="24"
+          height="18"
+          viewBox="0 0 24 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="24" height="2.25" rx="1.125" fill="#00404E" />
+          <rect y="7.5" width="24" height="2.25" rx="1.125" fill="#00404E" />
+          <rect y="15" width="24" height="2.25" rx="1.125" fill="#00404E" />
+        </svg>
+      </button>
+    </header>
+    <title-line :title="contactsData.title" />
+    <div class="container">
+      <div class="contacts__content">
+        <div class="contacts__info">
+          <h3 class="contacts__subtitle">{{ contactsData.subtitle }}</h3>
+          <p class="contacts__text" v-html="compText"></p>
+          <a :href="contactsData.email" target="_blank" class="contacts__email">
+            <span class="contacts__email-icon">
+              <img src="@/assets/images/svg-icons/email.svg" alt="icon email" />
+            </span>
+            {{ contactsData.email }}
+          </a>
+        </div>
+        <form class="contacts__form" @submit.prevent="onSubmit">
+          <div class="contacts__inputs">
+            <div class="contacts__inputs-row">
+              <input
+                type="text"
+                class="input"
+                :placeholder="contactsFormData.name"
+                v-model="submitData.name"
+              />
+              <input
+                type="text"
+                class="input"
+                :placeholder="contactsFormData.surname"
+                v-model="submitData.surname"
+              />
+            </div>
+            <div class="contacts__inputs-row">
+              <input
+                type="text"
+                class="input"
+                :placeholder="contactsFormData.email"
+                v-model="submitData.email"
+              />
+              <input
+                type="text"
+                class="input"
+                :placeholder="contactsFormData.phoneNum"
+                v-model="submitData.phoneNum"
+              />
+            </div>
+            <textarea
+              class="input"
+              :placeholder="contactsFormData.message"
+              v-model="submitData.message"
+            ></textarea>
+            <div class="contacts__inputs-row">
+              <label class="contacts__policy">
+                <span class="contacts__policy-checkbox checkbox">
+                  <input type="checkbox" class="checkbox__none" />
+                  <span class="checkbox__style"></span>
+                </span>
+                <span class="contacts__policy-text" v-html="policyLink"></span>
+              </label>
+              <button type="submit" class="contacts__btn-send">
+                {{ contactsFormData.btnSend }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import titleLine from './titleLine.vue'
+export default {
+  name: 'contactsPage',
+  components: {
+    titleLine,
+  },
+  data() {
+    return {
+      contactsData: {
+        title: 'KONTAKTAI',
+        subtitle: 'Susisiekite su mumis',
+        facebookText: 'Facebook paskyroje',
+        facebookLink: 'https://www.facebook.com/',
+        text: `Į kilusius klausimus atsakysime Jums kuo galima greičiau. Daugiau informacijos apie naujienas rasite mūsų`,
+        email: 'info@siluteinfo.lt',
+      },
+      contactsFormData: {
+        name: 'Vardas',
+        surname: 'Pavardė',
+        email: 'El. paštas',
+        phoneNum: 'Telefonas',
+        message: 'Jūsų žinutė',
+        policyText: 'Privatumo politika',
+        policyLink: 'https://www.google.com/',
+        checkboxText: `Sutinku su jūsų`,
+        btnSend: 'Siųsti užklausą',
+      },
+      submitData: {
+        name: null,
+        surname: null,
+        email: null,
+        phoneNum: null,
+        message: null,
+      },
+      sendSubmit: {
+        type: Array,
+        default() {
+          return []
+        },
+      },
+    }
+  },
+  methods: {
+    onSubmit() {
+      var newSubmitData = [
+        {
+          name: this.submitData.name,
+          surname: this.submitData.surname,
+          email: this.submitData.email,
+          phoneNum: this.submitData.phoneNum,
+          message: this.submitData.message,
+        },
+      ]
+      // this.$emit('sendContacts', newSubmitData)
+      console.log(newSubmitData)
+
+      console.log(this.sendedData)
+      this.sendSubmit.push(newSubmitData)
+      // Object.assign(newSubmitData, this.sendedData)
+      console.log(this.sendedData)
+
+      this.submitData.name = null
+      this.submitData.surname = null
+      this.submitData.email = null
+      this.submitData.phoneNum = null
+      this.submitData.message = null
+    },
+  },
+  computed: {
+    policyLink: function () {
+      return `${this.contactsFormData.checkboxText} <a traget="_blank" href="${this.contactsFormData.policyLink}">${this.contactsFormData.policyText}</a>`
+    },
+    compText: function () {
+      return `${this.contactsData.text} <a traget="_blank" href="${this.contactsData.facebookLink}">${this.contactsData.facebookText}</a>.`
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+.contacts {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100vw;
+  //   min-height: 100vh;
+  background: #ffffff;
+  //   overflow-y: auto;
+  //   z-index: 105;
+  &__header {
+    position: static;
+    transform: none;
+    .header__logo {
+      width: 62px;
+      @media (max-width: 575.98px) {
+        width: 54px;
+      }
+    }
+  }
+
+  &__content {
+    padding: 50px 0 120px;
+    display: flex;
+    column-gap: 73px;
+    @media (max-width: 991.98px) {
+      flex-direction: column;
+      row-gap: 25px;
+    }
+  }
+
+  &__info {
+    max-width: 360px;
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -1px;
+    color: #383838;
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    margin-bottom: 10px;
+    a {
+      color: #00404e;
+      text-decoration-line: underline;
+      &:hover {
+        text-decoration-line: unset;
+      }
+    }
+  }
+
+  &__email {
+    width: fit-content;
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    color: #00404e;
+    font-size: 15px;
+    text-decoration-line: underline;
+    &:hover {
+      text-decoration-line: unset;
+    }
+  }
+
+  &__email-icon {
+  }
+
+  &__form {
+    flex: 1 1 auto;
+  }
+
+  &__inputs {
+  }
+
+  &__inputs-row {
+    display: flex;
+    column-gap: 95px;
+    justify-content: space-between;
+    @media (max-width: 575.98px) {
+      flex-direction: column;
+    }
+  }
+
+  &__policy {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  &__policy-checkbox {
+  }
+
+  &__policy-text {
+    a {
+      text-decoration-line: underline;
+      &:hover {
+        text-decoration-line: unset;
+      }
+    }
+  }
+
+  &__btn-send {
+    color: #ffffff;
+    padding: 10px 27px;
+    border-radius: 30px;
+    background: #db3831;
+    @media (max-width: 575.98px) {
+      margin: 0 auto;
+      margin-top: 32px;
+      width: fit-content;
+    }
+  }
+}
+.input {
+  display: block;
+  padding: 0 0 14px;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 25px;
+  width: 100%;
+  //   max-width: 300px;
+  color: #383838;
+}
+textarea.input {
+  max-width: unset;
+  height: 85px;
+}
+</style>
