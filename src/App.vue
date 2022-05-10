@@ -28,7 +28,7 @@
         }
       "
     />
-    <div v-if="!pagesIsOpen" class="map">
+    <div v-if="!pagesIsOpen" class="map-main">
       <button
         type="button"
         @click="
@@ -263,8 +263,8 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      pagesIsOpen: true,
-      homeIsOpen: true,
+      pagesIsOpen: false,
+      homeIsOpen: false,
       contactsIsOpen: false,
       littleLithuaniaIsOpen: false,
       vaneRoadIsOpen: false,

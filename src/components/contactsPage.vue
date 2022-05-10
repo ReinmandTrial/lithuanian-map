@@ -40,6 +40,7 @@
           <div class="contacts__inputs">
             <div class="contacts__inputs-row">
               <input
+                required
                 type="text"
                 class="input"
                 :placeholder="contactsFormData.name"
@@ -54,12 +55,14 @@
             </div>
             <div class="contacts__inputs-row">
               <input
+                required
                 type="text"
                 class="input"
                 :placeholder="contactsFormData.email"
                 v-model="submitData.email"
               />
               <input
+                required
                 type="text"
                 class="input"
                 :placeholder="contactsFormData.phoneNum"
@@ -67,6 +70,7 @@
               />
             </div>
             <textarea
+              required
               class="input"
               :placeholder="contactsFormData.message"
               v-model="submitData.message"
@@ -74,7 +78,12 @@
             <div class="contacts__inputs-row">
               <label class="contacts__policy">
                 <span class="contacts__policy-checkbox checkbox">
-                  <input type="checkbox" class="checkbox__none" />
+                  <input
+                    id="policy"
+                    type="checkbox"
+                    class="checkbox__none"
+                    required
+                  />
                   <span class="checkbox__style"></span>
                 </span>
                 <span class="contacts__policy-text" v-html="policyLink"></span>
@@ -125,38 +134,28 @@ export default {
         phoneNum: null,
         message: null,
       },
-      sendSubmit: {
-        type: Array,
-        default() {
-          return []
-        },
-      },
+      sendSubmit: [],
     }
   },
   methods: {
     onSubmit() {
-      var newSubmitData = [
-        {
-          name: this.submitData.name,
-          surname: this.submitData.surname,
-          email: this.submitData.email,
-          phoneNum: this.submitData.phoneNum,
-          message: this.submitData.message,
-        },
-      ]
-      // this.$emit('sendContacts', newSubmitData)
-      console.log(newSubmitData)
+      var newSubmitData = {
+        name: this.submitData.name,
+        surname: this.submitData.surname,
+        email: this.submitData.email,
+        phoneNum: this.submitData.phoneNum,
+        message: this.submitData.message,
+      }
 
-      console.log(this.sendedData)
       this.sendSubmit.push(newSubmitData)
-      // Object.assign(newSubmitData, this.sendedData)
-      console.log(this.sendedData)
 
       this.submitData.name = null
       this.submitData.surname = null
       this.submitData.email = null
       this.submitData.phoneNum = null
       this.submitData.message = null
+
+      document.getElementById('policy').checked = false
     },
   },
   computed: {
@@ -260,6 +259,10 @@ export default {
     display: flex;
     align-items: center;
     column-gap: 10px;
+    .checkbox__none {
+      bottom: -2px;
+      left: 8px;
+    }
   }
 
   &__policy-checkbox {
