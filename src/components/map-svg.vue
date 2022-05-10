@@ -1,155 +1,161 @@
 <template>
   <!-- <div class="map" v-on:mousedown="mousedownMap"> -->
-  <div class="map">
-    <div class="map__translateX">
-      <div class="map__translateY">
+  <div class="map" @mousemove="mousemoveMap" @mouseup="mouseupMap">
+    <div class="map__scale">
+      <div
+        class="map__translateX"
+        :style="{ transform: 'translateX(' + newTranslateX + 'px)' }"
+      >
         <div
-          class="map__wrap"
-          @mousedown.prevent="mousedownMap"
-          @mousemove="mousemoveMap"
-          @mouseup="mouseupMap"
+          class="map__translateY"
+          :style="{ transform: 'translateY(' + newTranslateY + 'px)' }"
         >
-          <!-- <img src="@/assets/images/Base_Map_SVG.svg" alt="map" /> -->
-          <img src="@/assets/images/Base_Map_SVG.jpg" alt="map" />
-          <div class="map__jacht-1">
-            <img
-              src="@/assets/images/anim-targets/Meridianas_SVG.svg"
-              alt="Jacht"
-            />
-          </div>
+          <div class="map__wrap" @mousedown.prevent="mousedownMap">
+            <!-- <img src="@/assets/images/Base_Map_SVG.svg" alt="map" /> -->
+            <img src="@/assets/images/Base_Map_SVG.jpg" alt="map" />
+            <div class="map__jacht-1">
+              <img
+                src="@/assets/images/anim-targets/Meridianas_SVG.svg"
+                alt="Jacht"
+              />
+            </div>
 
-          <div class="map__jachts">
-            <div class="map__jacht-2">
-              <img
-                src="@/assets/images/anim-targets/Jachta_SVG.svg"
-                alt="Jacht"
-              />
+            <div class="map__jachts">
+              <div class="map__jacht-2">
+                <img
+                  src="@/assets/images/anim-targets/Jachta_SVG.svg"
+                  alt="Jacht"
+                />
+              </div>
+              <div class="map__jacht-3">
+                <img
+                  src="@/assets/images/anim-targets/Jachta2_SVG.svg"
+                  alt="Jacht"
+                />
+              </div>
+              <div class="map__jacht-4">
+                <img
+                  src="@/assets/images/anim-targets/Valtis_SVG.svg"
+                  alt="Jacht"
+                />
+              </div>
             </div>
-            <div class="map__jacht-3">
-              <img
-                src="@/assets/images/anim-targets/Jachta2_SVG.svg"
-                alt="Jacht"
-              />
+            <div class="map__roads">
+              <div class="map__road-A1">
+                <img src="@/assets/images/roads/a1--.svg" alt="" />
+              </div>
+              <div class="map__road-e272">
+                <img src="@/assets/images/roads/E272-t.svg" alt="" />
+              </div>
+              <div class="map__road-e77">
+                <img src="@/assets/images/roads/E77.svg" alt="" />
+              </div>
+              <div class="map__road-gr">
+                <img src="@/assets/images/roads/gr.svg" alt="" />
+              </div>
             </div>
-            <div class="map__jacht-4">
-              <img
-                src="@/assets/images/anim-targets/Valtis_SVG.svg"
-                alt="Jacht"
-              />
+            <div class="map__windmills">
+              <div class="map__windmill-1">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
+              <div class="map__windmill-2">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
+              <div class="map__windmill-3">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
+              <div class="map__windmill-4">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
+              <div class="map__windmill-5">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
+              <div class="map__windmill-6">
+                <img
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  alt=""
+                />
+              </div>
             </div>
+            <div class="map__towns">
+              <div class="map__klaipeda">
+                <img
+                  src="@/assets/images/buildings/Klaipeda_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Klaipėda</p>
+              </div>
+              <div class="map__gargzdai">
+                <img
+                  src="@/assets/images/buildings/Gargzdai_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Gargzdai</p>
+              </div>
+              <div class="map__jurbarkas">
+                <img
+                  src="@/assets/images/buildings/Jurbarkas_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Jurbarkas</p>
+              </div>
+              <div class="map__nida">
+                <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
+                <p class="map__town-name">Nida</p>
+              </div>
+              <div class="map__pagegiai">
+                <img
+                  src="@/assets/images/buildings/Pagegiai_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Pagegiai</p>
+              </div>
+              <div class="map__silute">
+                <img
+                  src="@/assets/images/buildings/Silute_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Silute</p>
+              </div>
+              <div class="map__taurage">
+                <img
+                  src="@/assets/images/buildings/Taurage_SVG.svg"
+                  alt="Jacht"
+                />
+                <p class="map__town-name">Taurage</p>
+              </div>
+            </div>
+            <div class="map__clouds">
+              <div class="map__cloud-1">
+                <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+              </div>
+              <div class="map__cloud-2">
+                <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+              </div>
+              <div class="map__cloud-3">
+                <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+              </div>
+              <div class="map__cloud-4">
+                <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+              </div>
+            </div>
+            <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
           </div>
-          <div class="map__roads">
-            <div class="map__road-A1">
-              <img src="@/assets/images/roads/a1--.svg" alt="" />
-            </div>
-            <div class="map__road-e272">
-              <img src="@/assets/images/roads/E272-t.svg" alt="" />
-            </div>
-            <div class="map__road-e77">
-              <img src="@/assets/images/roads/E77.svg" alt="" />
-            </div>
-            <div class="map__road-gr">
-              <img src="@/assets/images/roads/gr.svg" alt="" />
-            </div>
-          </div>
-          <div class="map__windmills">
-            <div class="map__windmill-1">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-            <div class="map__windmill-2">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-            <div class="map__windmill-3">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-            <div class="map__windmill-4">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-            <div class="map__windmill-5">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-            <div class="map__windmill-6">
-              <img
-                src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="map__towns">
-            <div class="map__klaipeda">
-              <img
-                src="@/assets/images/buildings/Klaipeda_SVG.svg"
-                alt="Jacht"
-              />
-              <p class="map__town-name">Klaipėda</p>
-            </div>
-            <div class="map__gargzdai">
-              <img
-                src="@/assets/images/buildings/Gargzdai_SVG.svg"
-                alt="Jacht"
-              />
-              <p class="map__town-name">Gargzdai</p>
-            </div>
-            <div class="map__jurbarkas">
-              <img
-                src="@/assets/images/buildings/Jurbarkas_SVG.svg"
-                alt="Jacht"
-              />
-              <p class="map__town-name">Jurbarkas</p>
-            </div>
-            <div class="map__nida">
-              <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
-              <p class="map__town-name">Nida</p>
-            </div>
-            <div class="map__pagegiai">
-              <img
-                src="@/assets/images/buildings/Pagegiai_SVG.svg"
-                alt="Jacht"
-              />
-              <p class="map__town-name">Pagegiai</p>
-            </div>
-            <div class="map__silute">
-              <img src="@/assets/images/buildings/Silute_SVG.svg" alt="Jacht" />
-              <p class="map__town-name">Silute</p>
-            </div>
-            <div class="map__taurage">
-              <img
-                src="@/assets/images/buildings/Taurage_SVG.svg"
-                alt="Jacht"
-              />
-              <p class="map__town-name">Taurage</p>
-            </div>
-          </div>
-          <div class="map__clouds">
-            <div class="map__cloud-1">
-              <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
-            </div>
-            <div class="map__cloud-2">
-              <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
-            </div>
-            <div class="map__cloud-3">
-              <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
-            </div>
-            <div class="map__cloud-4">
-              <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
-            </div>
-          </div>
-          <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
         </div>
       </div>
     </div>
@@ -204,13 +210,14 @@ export default {
   data() {
     return {
       swipeMap: false,
-      // posXConst: 0,
       posXStart: 0,
       translateX: 0,
       diffX: 0,
       posYStart: 0,
       translateY: 0,
       diffY: 0,
+      newTranslateX: 0,
+      newTranslateY: 0,
       filter: [
         {
           id: 1,
@@ -348,26 +355,54 @@ export default {
     },
     mousemoveMap: function (e) {
       if (this.swipeMap == true) {
+        var mapPosX = this.mapX.getBoundingClientRect().left
+        var mapPosXMax = this.mapX.getBoundingClientRect().right
+
+        var mapPosY = this.mapY.getBoundingClientRect().top
+        var mapPosYMax = this.mapY.getBoundingClientRect().bottom
+
         var posXNew = e.clientX
         this.diffX = posXNew - this.posXStart
+
         var posYNew = e.clientY
         this.diffY = posYNew - this.posYStart
 
-        document.querySelector('.map__wrap').style.transform = `translate(${
-          this.translateX + this.diffX + 'px'
-        }, ${this.translateY + this.diffY + 'px'})`
+        if (mapPosX >= 0) {
+          this.translateX -= mapPosX
+        }
+        if (mapPosXMax <= window.innerWidth) {
+          var mapPosXDiff = window.innerWidth - mapPosXMax
+          this.translateX += mapPosXDiff
+        }
+        this.newTranslateX = this.translateX + this.diffX
+
+        if (mapPosY >= 0) {
+          this.translateY -= mapPosY
+        }
+        if (mapPosYMax <= window.innerHeight) {
+          var mapPosYDiff = window.innerHeight - mapPosYMax
+          this.translateY += mapPosYDiff
+        }
+        this.newTranslateY = this.translateY + this.diffY
       }
     },
     mouseupMap: function () {
       this.translateX += this.diffX
       this.translateY += this.diffY
+
       this.swipeMap = false
+      // this.$emit('mouseUp', this.swipeMap)
     },
   },
-  computed: {},
-  mounted: function () {
-    //  this.zoomIn
+  computed: {
+    mapX: function () {
+      return document.querySelector('.map__translateX')
+    },
+    mapY: function () {
+      return document.querySelector('.map__translateY')
+    },
   },
+  mounted: function () {},
 }
 </script>
 <style lang="scss" scoped>
@@ -375,18 +410,26 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  &__scale {
+    // transform: scale(1.5);
+  }
   &__wrap {
     // 			3.74				8193
     //     	20,36   		0
     // 	 		24,10				8193
 
-    width: 100vmax;
+    // width: 100vmax;
+    width: 2000px;
     flex: none;
     // width: 8193px;
     // height: 4993px;
     padding-bottom: 60.94%;
     height: 0;
     position: relative;
+    overflow: hidden;
   }
 
   &__wrap > img {

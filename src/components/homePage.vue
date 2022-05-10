@@ -168,6 +168,7 @@ header {
   transform: translateX(-50%);
 
   &__logo {
+    cursor: pointer;
     width: 87px;
     height: 89px;
     @media (max-width: 575.98px) {
