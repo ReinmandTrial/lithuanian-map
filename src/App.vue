@@ -69,18 +69,6 @@
       </div>
       <map-svg :marks="marks" @addCardToSelected="addCardToSelected" />
 
-      <div class="zoom-panel">
-        <button type="button" class="zoom-panel__plus">
-          <img src="@/assets/images/svg-icons/plus.svg" alt="" />
-        </button>
-        <div class="zoom-panel__slider">
-          <span></span>
-        </div>
-        <button type="button" class="zoom-panel__minus">
-          <img src="@/assets/images/svg-icons/minus.svg" alt="" />
-        </button>
-      </div>
-
       <popup-selected-objects
         :selectedObjects="selectedObjects"
         @addCardToSelected="addCardToSelected"
@@ -557,53 +545,6 @@ export default {
     top: 55%;
     right: -650px;
     // transition-delay: 0.2s;
-  }
-}
-.zoom-panel {
-  position: fixed;
-  transform: translateY(-50%);
-  top: 50%;
-  right: 43px;
-  padding: 8px 11px;
-  border-radius: 40px;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 5px;
-  z-index: 15;
-  &__plus {
-    display: block;
-    width: 32px;
-    height: 32px;
-    flex: none;
-  }
-
-  &__slider {
-    position: relative;
-    width: 2px;
-    height: 115px;
-    border-radius: 3px;
-    background: #00404e;
-    span {
-      cursor: pointer;
-      transform: translateX(-50%);
-      position: absolute;
-      left: 50%;
-      bottom: -3px;
-      display: block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #00404e;
-    }
-  }
-
-  &__minus {
-    display: block;
-    width: 32px;
-    height: 32px;
-    flex: none;
   }
 }
 </style>

@@ -1,14 +1,22 @@
 <template>
   <!-- <div class="map" v-on:mousedown="mousedownMap"> -->
   <div class="map" @mousemove="mousemoveMap" @mouseup="mouseupMap">
-    <div class="map__scale">
+    <div
+      class="map__scale"
+      :style="{ transform: 'scale(' + zoomvalue + ')' }"
+      @wheel="zoomOOnScroll"
+    >
       <div
         class="map__translateX"
-        :style="{ transform: 'translateX(' + newTranslateX + 'px)' }"
+        :style="{
+          transform: 'translateX(' + newTranslateX / zoomvalue + 'px)',
+        }"
       >
         <div
           class="map__translateY"
-          :style="{ transform: 'translateY(' + newTranslateY + 'px)' }"
+          :style="{
+            transform: 'translateY(' + newTranslateY / zoomvalue + 'px)',
+          }"
         >
           <div class="map__wrap" @mousedown.prevent="mousedownMap">
             <!-- <img src="@/assets/images/Base_Map_SVG.svg" alt="map" /> -->
@@ -159,7 +167,26 @@
         </div>
       </div>
     </div>
+    <div class="zoom-panel">
+      <button type="button" class="zoom-panel__plus" @click="zoomPlus">
+        <img src="@/assets/images/svg-icons/plus.svg" alt="" />
+      </button>
 
+      <input
+        type="range"
+        min="1"
+        max="2"
+        value="1"
+        class="zoom-panel__slider"
+        id="zoom"
+        v-model="zoomvalue"
+        step="0.01"
+        @change="currectTranslate"
+      />
+      <button type="button" class="zoom-panel__minus" @click="zoomMinus">
+        <img src="@/assets/images/svg-icons/minus.svg" alt="" />
+      </button>
+    </div>
     <div class="marks-filter">
       <div
         class="marks-filter__item"
@@ -209,6 +236,7 @@ export default {
   name: 'mapSvg',
   data() {
     return {
+      zoomvalue: 1,
       swipeMap: false,
       posXStart: 0,
       translateX: 0,
@@ -355,18 +383,14 @@ export default {
     },
     mousemoveMap: function (e) {
       if (this.swipeMap == true) {
-        var mapPosX = this.mapX.getBoundingClientRect().left
-        var mapPosXMax = this.mapX.getBoundingClientRect().right
-
-        var mapPosY = this.mapY.getBoundingClientRect().top
-        var mapPosYMax = this.mapY.getBoundingClientRect().bottom
-
         var posXNew = e.clientX
         this.diffX = posXNew - this.posXStart
 
         var posYNew = e.clientY
         this.diffY = posYNew - this.posYStart
 
+        var mapPosX = this.mapX.getBoundingClientRect().left
+        var mapPosXMax = this.mapX.getBoundingClientRect().right
         if (mapPosX >= 0) {
           this.translateX -= mapPosX
         }
@@ -376,6 +400,8 @@ export default {
         }
         this.newTranslateX = this.translateX + this.diffX
 
+        var mapPosY = this.mapY.getBoundingClientRect().top
+        var mapPosYMax = this.mapY.getBoundingClientRect().bottom
         if (mapPosY >= 0) {
           this.translateY -= mapPosY
         }
@@ -392,6 +418,52 @@ export default {
 
       this.swipeMap = false
       // this.$emit('mouseUp', this.swipeMap)
+    },
+    zoomPlus: function () {
+      if (this.zoomvalue < 2) {
+        this.zoomvalue += 0.2
+        this.currectTranslate()
+      }
+    },
+    zoomMinus: function () {
+      if (this.zoomvalue > 1) {
+        this.zoomvalue -= 0.2
+        this.currectTranslate()
+      }
+    },
+    currectTranslate: function () {
+      console.log('currect')
+
+      // setTimeout(function () {
+      var mapPosX = this.mapX.getBoundingClientRect().left
+      var mapPosXMax = this.mapX.getBoundingClientRect().right
+      if (mapPosX >= 0) {
+        this.newTranslateX -= mapPosX
+      }
+      if (mapPosXMax <= window.innerWidth) {
+        var mapPosXDiff = window.innerWidth - mapPosXMax
+        this.newTranslateX += mapPosXDiff
+      }
+      // this.newTranslateX = this.translateX + this.diffX
+
+      var mapPosY = this.mapY.getBoundingClientRect().top
+      var mapPosYMax = this.mapY.getBoundingClientRect().bottom
+      if (mapPosY >= 0) {
+        this.newTranslateY -= mapPosY
+      }
+      if (mapPosYMax <= window.innerHeight) {
+        var mapPosYDiff = window.innerHeight - mapPosYMax
+        this.newTranslateY += mapPosYDiff
+      }
+      // this.newTranslateY = this.translateY + this.diffY
+      // }, 100)
+    },
+    zoomOOnScroll: function (e) {
+      if (e.deltaY > 0 && this.zoomvalue > 1) {
+        this.zoomvalue -= 0.2
+      } else if (e.deltaY < 0 && this.zoomvalue < 2) {
+        this.zoomvalue += 0.2
+      }
     },
   },
   computed: {
@@ -413,8 +485,8 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  &__scale {
-    // transform: scale(1.5);
+  &__translateX,
+  &__translateY {
   }
   &__wrap {
     // 			3.74				8193
@@ -842,6 +914,74 @@ export default {
     align-items: center;
     background: #fff;
     transition: 0.15s;
+  }
+}
+.zoom-panel {
+  position: fixed;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 43px;
+  padding: 8px 11px;
+  border-radius: 40px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+  z-index: 15;
+  &__plus {
+    display: block;
+    width: 32px;
+    height: 32px;
+    flex: none;
+  }
+
+  &__slider {
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 115px;
+    height: 2px;
+    margin: 56.5px -56.5px;
+    transform: rotate(-90deg);
+    border-radius: 3px;
+    background: #00404e;
+    &::-webkit-slider-thumb {
+      width: 12px;
+      height: 12px;
+      background: #00404e;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background: #00404e;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+    &::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      background: #00404e;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      &:hover {
+        background: #00404e;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+  }
+
+  &__minus {
+    display: block;
+    width: 32px;
+    height: 32px;
+    flex: none;
   }
 }
 </style>
