@@ -1,10 +1,15 @@
 <template>
   <!-- <div class="map" v-on:mousedown="mousedownMap"> -->
-  <div class="map" @mousemove="mousemoveMap" @mouseup="mouseupMap">
+  <div
+    class="map"
+    v-hammer:pan="move"
+    v-hammer:panend="moveEnd"
+    @resize="setMapWidth"
+  >
     <div
       class="map__scale"
       :style="{ transform: 'scale(' + zoomvalue + ')' }"
-      @wheel="zoomOOnScroll"
+      @wheel="zoomOnScroll"
     >
       <div
         class="map__translateX"
@@ -18,17 +23,21 @@
             transform: 'translateY(' + newTranslateY / zoomvalue + 'px)',
           }"
         >
-          <div class="map__wrap" @mousedown.prevent="mousedownMap">
+          <div class="map__wrap" :style="{ width: mapWidth + 'px' }">
             <!-- <img src="@/assets/images/Base_Map_SVG.svg" alt="map" /> -->
-            <img src="@/assets/images/Base_Map_SVG.jpg" alt="map" />
-            <div class="map__jacht-1">
-              <img
-                src="@/assets/images/anim-targets/Meridianas_SVG.svg"
-                alt="Jacht"
-              />
-            </div>
+            <img
+              src="@/assets/images/Base_Map_SVG.jpg"
+              alt="map"
+              @mousedown.prevent=""
+            />
 
             <div class="map__jachts">
+              <div class="map__jacht-1">
+                <img
+                  src="@/assets/images/anim-targets/Meridianas_SVG.svg"
+                  alt="Jacht"
+                />
+              </div>
               <div class="map__jacht-2">
                 <img
                   src="@/assets/images/anim-targets/Jachta_SVG.svg"
@@ -103,46 +112,46 @@
             <div class="map__towns">
               <div class="map__klaipeda">
                 <img
-                  src="@/assets/images/buildings/Klaipeda_SVG.svg"
+                  src="@/assets/images/buildings/Klaipeda_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Klaipėda</p>
               </div>
               <div class="map__gargzdai">
                 <img
-                  src="@/assets/images/buildings/Gargzdai_SVG.svg"
+                  src="@/assets/images/buildings/Gargzdai_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Gargzdai</p>
               </div>
               <div class="map__jurbarkas">
                 <img
-                  src="@/assets/images/buildings/Jurbarkas_SVG.svg"
+                  src="@/assets/images/buildings/Jurbarkas_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Jurbarkas</p>
               </div>
               <div class="map__nida">
-                <img src="@/assets/images/buildings/Nida_SVG.svg" alt="Jacht" />
+                <img src="@/assets/images/buildings/Nida_SVG.png" alt="Jacht" />
                 <p class="map__town-name">Nida</p>
               </div>
               <div class="map__pagegiai">
                 <img
-                  src="@/assets/images/buildings/Pagegiai_SVG.svg"
+                  src="@/assets/images/buildings/Pagegiai_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Pagegiai</p>
               </div>
               <div class="map__silute">
                 <img
-                  src="@/assets/images/buildings/Silute_SVG.svg"
+                  src="@/assets/images/buildings/Silute_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Silute</p>
               </div>
               <div class="map__taurage">
                 <img
-                  src="@/assets/images/buildings/Taurage_SVG.svg"
+                  src="@/assets/images/buildings/Taurage_SVG.png"
                   alt="Jacht"
                 />
                 <p class="map__town-name">Taurage</p>
@@ -162,7 +171,11 @@
                 <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
               </div>
             </div>
-            <v-mark :marks="marks" @addCardToSelected="addCardToSelected" />
+            <v-mark
+              :marks="marks"
+              @addCardToSelected="addCardToSelected"
+              :zoomvalue="zoomvalue"
+            />
           </div>
         </div>
       </div>
@@ -181,7 +194,6 @@
         id="zoom"
         v-model="zoomvalue"
         step="0.01"
-        @change="currectTranslate"
       />
       <button type="button" class="zoom-panel__minus" @click="zoomMinus">
         <img src="@/assets/images/svg-icons/minus.svg" alt="" />
@@ -232,12 +244,15 @@
 <script>
 import Mark from './mark.vue'
 import MarkBtn from './mark-btn.vue'
+// import VueHM from 'vue-'
 export default {
   name: 'mapSvg',
   data() {
     return {
+      mapWidth: 2000,
+      mapHeight: null,
+      coefMapHeight: 0.6094,
       zoomvalue: 1,
-      swipeMap: false,
       posXStart: 0,
       translateX: 0,
       diffX: 0,
@@ -246,6 +261,14 @@ export default {
       diffY: 0,
       newTranslateX: 0,
       newTranslateY: 0,
+      minTranslateX: null,
+      minTranslateY: null,
+      maxTranslateX: null,
+      maxTranslateY: null,
+      mapPosX: null,
+      mapPosY: null,
+      mapPosXMax: null,
+      mapPosYMax: null,
       filter: [
         {
           id: 1,
@@ -294,6 +317,98 @@ export default {
     'mark-btn': MarkBtn,
   },
   methods: {
+    move: function (e) {
+      // console.log('move')
+
+      if (this.minTranslateX < e.deltaX + this.translateX) {
+        var overXMin = e.deltaX + this.translateX - this.minTranslateX
+        this.translateX -= overXMin
+        this.newTranslateX = this.minTranslateX
+      } else if (this.maxTranslateX > e.deltaX + this.translateX) {
+        var overXMax = e.deltaX + this.translateX - this.maxTranslateX
+        this.translateX -= overXMax
+        this.newTranslateX = this.maxTranslateX
+      } else {
+        this.newTranslateX = e.deltaX + this.translateX
+      }
+
+      if (this.minTranslateY < e.deltaY + this.translateY) {
+        var overYMin = e.deltaY + this.translateY - this.minTranslateY
+        this.translateY -= overYMin
+        this.newTranslateY = this.minTranslateY
+      } else if (this.maxTranslateY > e.deltaY + this.translateY) {
+        var overYMax = e.deltaY + this.translateY - this.maxTranslateY
+        this.translateY -= overYMax
+        this.newTranslateY = this.maxTranslateY
+      } else {
+        this.newTranslateY = e.deltaY + this.translateY
+      }
+    },
+    moveEnd: function (e) {
+      this.translateX += e.deltaX
+      this.translateY += e.deltaY
+    },
+
+    minMaxPos: function () {
+      this.$nextTick(function () {
+        this.mapPosX = this.mapX.getBoundingClientRect().left
+        this.minTranslateX = (this.mapPosX - this.newTranslateX) * -1
+
+        this.mapPosXMax = this.mapX.getBoundingClientRect().right
+        this.maxTranslateX =
+          (this.mapPosXMax - this.newTranslateX - window.innerWidth) * -1
+
+        this.mapPosY = this.mapY.getBoundingClientRect().top
+        this.minTranslateY = (this.mapPosY - this.newTranslateY) * -1
+
+        this.mapPosYMax = this.mapX.getBoundingClientRect().bottom
+        this.maxTranslateY = (this.mapPosYMax - window.innerHeight) * -1
+
+        if (this.minTranslateX < this.newTranslateX) {
+          this.translateX =
+            this.translateX + this.minTranslateX - this.newTranslateX
+          this.newTranslateX = this.minTranslateX
+        }
+
+        if (this.maxTranslateX > this.newTranslateX) {
+          this.translateX =
+            this.translateX + this.maxTranslateX - this.newTranslateX
+          this.newTranslateX = this.maxTranslateX
+        }
+
+        if (this.minTranslateY < this.newTranslateY) {
+          this.translateY =
+            this.translateY + this.minTranslateY - this.newTranslateY
+          this.newTranslateY = this.minTranslateY
+        }
+
+        if (this.maxTranslateY > this.newTranslateY) {
+          this.translateY =
+            this.translateY + this.maxTranslateY - this.newTranslateY
+          this.newTranslateY = this.maxTranslateY
+        }
+      })
+    },
+    zoomPlus: function () {
+      if (this.zoomvalue < 1.9) {
+        this.zoomvalue += 0.2
+      }
+    },
+    zoomMinus: function () {
+      if (this.zoomvalue > 1) {
+        this.zoomvalue -= 0.2
+      }
+    },
+
+    zoomOnScroll: function (e) {
+      if (e.deltaY > 0 && this.zoomvalue > 1) {
+        this.zoomvalue -= 0.2
+      } else if (e.deltaY < 0 && this.zoomvalue < 1.9) {
+        this.zoomvalue += 0.2
+      }
+
+      // this.move(e)
+    },
     activeFilter: function (e) {
       const filterItems = document.querySelectorAll('.marks-filter__item')
       var thisElem = e.target.closest('.marks-filter__item')
@@ -374,95 +489,11 @@ export default {
     addCardToSelected: function (data) {
       this.$emit('addCardToSelected', data)
     },
-
-    mousedownMap: function (e) {
-      this.posXStart = e.clientX
-      this.posYStart = e.clientY
-
-      this.swipeMap = true
-    },
-    mousemoveMap: function (e) {
-      if (this.swipeMap == true) {
-        var posXNew = e.clientX
-        this.diffX = posXNew - this.posXStart
-
-        var posYNew = e.clientY
-        this.diffY = posYNew - this.posYStart
-
-        var mapPosX = this.mapX.getBoundingClientRect().left
-        var mapPosXMax = this.mapX.getBoundingClientRect().right
-        if (mapPosX >= 0) {
-          this.translateX -= mapPosX
-        }
-        if (mapPosXMax <= window.innerWidth) {
-          var mapPosXDiff = window.innerWidth - mapPosXMax
-          this.translateX += mapPosXDiff
-        }
-        this.newTranslateX = this.translateX + this.diffX
-
-        var mapPosY = this.mapY.getBoundingClientRect().top
-        var mapPosYMax = this.mapY.getBoundingClientRect().bottom
-        if (mapPosY >= 0) {
-          this.translateY -= mapPosY
-        }
-        if (mapPosYMax <= window.innerHeight) {
-          var mapPosYDiff = window.innerHeight - mapPosYMax
-          this.translateY += mapPosYDiff
-        }
-        this.newTranslateY = this.translateY + this.diffY
-      }
-    },
-    mouseupMap: function () {
-      this.translateX += this.diffX
-      this.translateY += this.diffY
-
-      this.swipeMap = false
-      // this.$emit('mouseUp', this.swipeMap)
-    },
-    zoomPlus: function () {
-      if (this.zoomvalue < 2) {
-        this.zoomvalue += 0.2
-        this.currectTranslate()
-      }
-    },
-    zoomMinus: function () {
-      if (this.zoomvalue > 1) {
-        this.zoomvalue -= 0.2
-        this.currectTranslate()
-      }
-    },
-    currectTranslate: function () {
-      console.log('currect')
-
-      // setTimeout(function () {
-      var mapPosX = this.mapX.getBoundingClientRect().left
-      var mapPosXMax = this.mapX.getBoundingClientRect().right
-      if (mapPosX >= 0) {
-        this.newTranslateX -= mapPosX
-      }
-      if (mapPosXMax <= window.innerWidth) {
-        var mapPosXDiff = window.innerWidth - mapPosXMax
-        this.newTranslateX += mapPosXDiff
-      }
-      // this.newTranslateX = this.translateX + this.diffX
-
-      var mapPosY = this.mapY.getBoundingClientRect().top
-      var mapPosYMax = this.mapY.getBoundingClientRect().bottom
-      if (mapPosY >= 0) {
-        this.newTranslateY -= mapPosY
-      }
-      if (mapPosYMax <= window.innerHeight) {
-        var mapPosYDiff = window.innerHeight - mapPosYMax
-        this.newTranslateY += mapPosYDiff
-      }
-      // this.newTranslateY = this.translateY + this.diffY
-      // }, 100)
-    },
-    zoomOOnScroll: function (e) {
-      if (e.deltaY > 0 && this.zoomvalue > 1) {
-        this.zoomvalue -= 0.2
-      } else if (e.deltaY < 0 && this.zoomvalue < 2) {
-        this.zoomvalue += 0.2
+    setMapWidth: function () {
+      if (window.innerHeight <= window.innerWidth * this.coefMapHeight) {
+        this.mapWidth = window.innerWidth
+      } else {
+        this.mapWidth = window.innerHeight / this.coefMapHeight
       }
     },
   },
@@ -474,7 +505,17 @@ export default {
       return document.querySelector('.map__translateY')
     },
   },
-  mounted: function () {},
+  watch: {
+    zoomvalue: 'minMaxPos',
+  },
+  mounted: function () {
+    this.setMapWidth()
+    window.addEventListener('resize', this.setMapWidth)
+    this.minMaxPos()
+  },
+  destroyed: function () {
+    window.removeEventListener('resize', this.setMapWidth)
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -489,15 +530,7 @@ export default {
   &__translateY {
   }
   &__wrap {
-    // 			3.74				8193
-    //     	20,36   		0
-    // 	 		24,10				8193
-
-    // width: 100vmax;
-    width: 2000px;
     flex: none;
-    // width: 8193px;
-    // height: 4993px;
     padding-bottom: 60.94%;
     height: 0;
     position: relative;
@@ -544,6 +577,7 @@ export default {
   }
   &__roads {
     img {
+      pointer-events: none;
       width: 100%;
     }
   }
@@ -576,6 +610,7 @@ export default {
 
   &__windmills {
     img {
+      pointer-events: none;
       width: 100%;
     }
   }
@@ -642,6 +677,7 @@ export default {
 
   &__clouds {
     img {
+      pointer-events: none;
       width: 100%;
     }
   }
@@ -710,6 +746,7 @@ export default {
 
   &__jachts {
     img {
+      pointer-events: none;
       width: 100%;
     }
   }
@@ -761,6 +798,7 @@ export default {
 
   &__towns {
     img {
+      pointer-events: none;
       width: 100%;
     }
   }

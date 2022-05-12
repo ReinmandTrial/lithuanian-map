@@ -7,6 +7,7 @@
       v-bind:style="{
         top: calcAxysY(mark.markAxysY),
         left: calcAxysX(mark.markAxysX),
+        transform: 'scale(' + 1 / zoomvalue + ')',
       }"
     >
       <mark-btn :mark="mark" @click.native="showCard" />
@@ -32,6 +33,7 @@ export default {
     }
   },
   props: {
+    zoomvalue: {},
     selectedObjects: {
       type: Array,
       default() {
