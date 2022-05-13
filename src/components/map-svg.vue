@@ -34,25 +34,25 @@
             <div class="map__jachts">
               <div class="map__jacht-1">
                 <img
-                  src="@/assets/images/anim-targets/Meridianas_SVG.svg"
+                  src="@/assets/images/anim-targets/Meridianas_SVG.png"
                   alt="Jacht"
                 />
               </div>
               <div class="map__jacht-2">
                 <img
-                  src="@/assets/images/anim-targets/Jachta_SVG.svg"
+                  src="@/assets/images/anim-targets/Jachta_SVG.png"
                   alt="Jacht"
                 />
               </div>
               <div class="map__jacht-3">
                 <img
-                  src="@/assets/images/anim-targets/Jachta2_SVG.svg"
+                  src="@/assets/images/anim-targets/Jachta2_SVG.png"
                   alt="Jacht"
                 />
               </div>
               <div class="map__jacht-4">
                 <img
-                  src="@/assets/images/anim-targets/Valtis_SVG.svg"
+                  src="@/assets/images/anim-targets/Valtis_SVG.png"
                   alt="Jacht"
                 />
               </div>
@@ -74,37 +74,37 @@
             <div class="map__windmills">
               <div class="map__windmill-1">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
               <div class="map__windmill-2">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
               <div class="map__windmill-3">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
               <div class="map__windmill-4">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
               <div class="map__windmill-5">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
               <div class="map__windmill-6">
                 <img
-                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.svg"
+                  src="@/assets/images/anim-targets/Vejo_Malunas_Propeleris_SVG.png"
                   alt=""
                 />
               </div>
@@ -159,16 +159,16 @@
             </div>
             <div class="map__clouds">
               <div class="map__cloud-1">
-                <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+                <img src="@/assets/images/anim-targets/Debesis1.png" alt="" />
               </div>
               <div class="map__cloud-2">
-                <img src="@/assets/images/anim-targets/Debesis1.svg" alt="" />
+                <img src="@/assets/images/anim-targets/Debesis1.png" alt="" />
               </div>
               <div class="map__cloud-3">
-                <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+                <img src="@/assets/images/anim-targets/Debesis2.png" alt="" />
               </div>
               <div class="map__cloud-4">
-                <img src="@/assets/images/anim-targets/Debesis2.svg" alt="" />
+                <img src="@/assets/images/anim-targets/Debesis2.png" alt="" />
               </div>
             </div>
             <v-mark
@@ -212,7 +212,11 @@
           @mouseenter.native="hoverFilter"
           @mouseleave.native="hoverFilterEnd"
         />
-        <button type="button" class="marks-filter__cancel">
+        <button
+          type="button"
+          class="marks-filter__cancel"
+          @click="activeFilter"
+        >
           <svg
             width="12"
             height="12"
@@ -409,6 +413,13 @@ export default {
 
       // this.move(e)
     },
+    currectZoom: function () {
+      if (this.zoomvalue < 1) {
+        this.zoomvalue = 1
+      } else if (this.zoomvalue > 2) {
+        this.zoomvalue = 2
+      }
+    },
     activeFilter: function (e) {
       const filterItems = document.querySelectorAll('.marks-filter__item')
       var thisElem = e.target.closest('.marks-filter__item')
@@ -506,7 +517,7 @@ export default {
     },
   },
   watch: {
-    zoomvalue: 'minMaxPos',
+    zoomvalue: ['currectZoom', 'minMaxPos'],
   },
   mounted: function () {
     this.setMapWidth()
@@ -883,11 +894,25 @@ export default {
   left: 65px;
   bottom: 80px;
   z-index: 10;
+  @media (max-width: 991.98px) {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 60px;
+  }
+  @media (max-width: 575.98px) {
+    padding: 10px 20px;
+    column-gap: 18px;
+  }
   &__item {
     position: relative;
     .mark-btn {
       width: 32px;
       height: 32px;
+      @media (max-width: 767.98px) {
+        width: 37px;
+        height: 37px;
+        transform: scale(1.15);
+      }
     }
     &:hover .marks-filter__descr {
       opacity: 0.9;
@@ -925,6 +950,9 @@ export default {
     transform-origin: center bottom;
     transition: 0.2s;
     transition-delay: 0s;
+    @media (max-width: 991.98px) {
+      display: none;
+    }
     &::before {
       content: '';
       position: absolute;
@@ -967,11 +995,23 @@ export default {
   align-items: center;
   row-gap: 5px;
   z-index: 15;
+  @media (max-width: 1125px) {
+    right: 25px;
+  }
+  @media (max-width: 575.98px) {
+    right: 15px;
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.8);
+  }
   &__plus {
     display: block;
     width: 32px;
     height: 32px;
     flex: none;
+    @media (max-width: 575.98px) {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   &__slider {
@@ -980,10 +1020,15 @@ export default {
     appearance: none;
     width: 115px;
     height: 2px;
-    margin: 56.5px -56.5px;
+    margin: 57.5px -57.5px;
     transform: rotate(-90deg);
     border-radius: 3px;
     background: #00404e;
+    @media (max-width: 575.98px) {
+      height: 1px;
+      width: 109px;
+      margin: 54.5px -54.5px;
+    }
     &::-webkit-slider-thumb {
       width: 12px;
       height: 12px;
@@ -992,6 +1037,10 @@ export default {
       appearance: none;
       border-radius: 50%;
       cursor: pointer;
+      @media (max-width: 575.98px) {
+        width: 6px;
+        height: 6px;
+      }
       &:hover {
         background: #00404e;
         -webkit-appearance: none;
@@ -1007,6 +1056,10 @@ export default {
       border-radius: 50%;
       cursor: pointer;
       border: none;
+      @media (max-width: 575.98px) {
+        width: 6px;
+        height: 6px;
+      }
       &:hover {
         background: #00404e;
         -webkit-appearance: none;
@@ -1020,6 +1073,10 @@ export default {
     width: 32px;
     height: 32px;
     flex: none;
+    @media (max-width: 575.98px) {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 </style>

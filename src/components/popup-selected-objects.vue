@@ -107,7 +107,7 @@ export default {
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  z-index: 50;
+  z-index: 70;
   // display: none;
   visibility: hidden;
 
@@ -129,6 +129,9 @@ export default {
     align-items: center;
     padding: 30px 40px;
     background: rgba(0, 0, 0, 0.5);
+    @media (max-width: 575.98px) {
+      padding: 30px 12px;
+    }
   }
 
   &__content {
@@ -144,6 +147,9 @@ export default {
     padding: 24px 24px 32px;
     display: flex;
     flex-direction: column;
+    @media (max-width: 575.98px) {
+      padding: 16px 10px 25px;
+    }
   }
 
   &__head {
@@ -157,6 +163,9 @@ export default {
   &__title {
     font-weight: 600;
     font-size: 24px;
+    @media (max-width: 575.98px) {
+      font-size: 20px;
+    }
   }
 
   &__close {
@@ -167,9 +176,17 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 575.98px) {
+      width: 40px;
+      height: 40px;
+    }
     svg {
       width: 32px;
       height: 32px;
+      @media (max-width: 575.98px) {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 
@@ -181,6 +198,9 @@ export default {
     font-weight: 600;
     margin-bottom: 16px;
     width: fit-content;
+    @media (max-width: 575.98px) {
+      margin-bottom: 25px;
+    }
   }
 
   &__list {
@@ -194,6 +214,10 @@ export default {
       padding-bottom: 15px;
       margin-bottom: 16px;
       border-bottom: 1px solid #ced4d1;
+      @media (max-width: 575.98px) {
+        padding-bottom: 10px;
+        margin-bottom: 11px;
+      }
     }
   }
   &__empty {

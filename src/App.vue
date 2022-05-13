@@ -389,7 +389,6 @@ export default {
 .logo {
   position: fixed;
   top: 18px;
-  left: 75px;
   z-index: 60;
   width: 102px;
   height: 102px;
@@ -399,14 +398,37 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 25px;
+  left: calc((100vw - 1125px) / 2);
+  @media (max-width: 1125px) {
+    left: 0px;
+  }
+  @media (max-width: 575.98px) {
+    width: 60px;
+    height: 60px;
+    top: 15px;
+    margin-left: 20px;
+    img {
+      width: 40px;
+      height: 35px;
+    }
+  }
 }
 .options {
   position: fixed;
   top: 43px;
-  right: 103px;
-  z-index: 20;
+  z-index: 65;
   display: flex;
   column-gap: 10px;
+  padding-right: 25px;
+  right: calc((100vw - 1125px) / 2);
+  @media (max-width: 1125px) {
+    right: 0px;
+  }
+  @media (max-width: 575.98px) {
+    column-gap: 6px;
+    top: 25px;
+  }
 }
 .burger-btn {
   background: #ffffff;
@@ -439,6 +461,12 @@ export default {
   padding: 30px 130px;
   top: 100vh;
   transition: 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  @media (max-width: 991.98px) {
+    padding: 30px 50px;
+  }
+  @media (max-width: 575.98px) {
+    padding: 30px 15px;
+  }
   &.openBurger {
     top: 0vh;
     .burger__content {
@@ -451,14 +479,25 @@ export default {
     .burger__cloud-top-left {
       left: -704px;
       transition-delay: 0.3s;
+
+      @media (max-width: 575.98px) {
+        left: -400px;
+      }
     }
     .burger__cloud-bottom-left {
       left: -133px;
       transition-delay: 0.5s;
+      @media (max-width: 1125px) {
+        left: -185px;
+      }
     }
     .burger__cloud-right-center {
       right: -193px;
       transition-delay: 0.4s;
+
+      @media (max-width: 575.98px) {
+        right: -175px;
+      }
     }
   }
   &__content {
@@ -476,6 +515,9 @@ export default {
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+    @media (max-width: 575.98px) {
+      padding: 30px 12px 45px;
+    }
   }
 
   &__btn-close {
@@ -506,6 +548,11 @@ export default {
   &__link {
     font-size: 36px;
     font-weight: 700;
+    position: relative;
+    z-index: 20;
+    @media (max-width: 575.98px) {
+      font-size: 32px;
+    }
   }
 
   &__socials {
@@ -526,25 +573,46 @@ export default {
     position: fixed;
     transition-duration: 0.5s;
     transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    pointer-events: none;
+    // pointer-events: none;
   }
 
   &__cloud-top-left {
     top: -100px;
     left: -1200px;
-    // transition-delay: 0.1s;
+    @media (max-width: 991.98px) {
+      width: 900px;
+      top: -80px;
+    }
+    @media (max-width: 575.98px) {
+      top: -17px;
+      width: 617px;
+    }
   }
 
   &__cloud-bottom-left {
     bottom: 32px;
     left: -780px;
     // transition-delay: 0.15s;
+    @media (max-width: 1125px) {
+      width: 590px;
+      bottom: 130px;
+    }
+    @media (max-width: 991.98px) {
+      width: 405px;
+    }
   }
 
   &__cloud-right-center {
     top: 55%;
     right: -650px;
     // transition-delay: 0.2s;
+    @media (max-width: 991.98px) {
+      width: 410px;
+    }
+    @media (max-width: 575.98px) {
+      width: 331px;
+      top: 51%;
+    }
   }
 }
 </style>

@@ -68,6 +68,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 575.98px) {
+    width: 40px;
+    height: 40px;
+  }
   &__counter {
     position: absolute;
     top: -6px;
@@ -84,6 +88,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 575.98px) {
+      top: -11px;
+      right: -9px;
+    }
     &.active {
       background: #db3831;
     }
@@ -92,6 +100,12 @@ export default {
   &__icon {
     display: flex;
     flex: none;
+    @media (max-width: 575.98px) {
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
   }
 }
 </style>

@@ -5,64 +5,71 @@
       @click="openDropdown = !openDropdown"
       class="dropdown__head"
     >
-      Filtruoti pagal savivaldybes
+      <span class="dropdown__text">
+        Filtruoti pagal savivaldybes
+      </span>
       <span class="dropdown__icon">
         <img
           src="@/assets/images/svg-icons/triangle-down.svg"
           alt="Triangle down"
         />
       </span>
+      <span class="dropdown__icon--mobile">
+        <img src="@/assets/images/svg-icons/filter.svg" alt="Triangle down" />
+      </span>
     </button>
     <div class="dropdown__body">
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Šilutės r. sav.</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Pagėgių sav.</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Jurbarko sav.</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Tauragės sav.</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Klaipėdos r. sav.</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Klaipėdos miestas</span>
-      </label>
-      <label class="dropdown__item">
-        <span class="checkbox">
-          <input type="checkbox" class="checkbox__none" />
-          <span class="checkbox__style"></span>
-        </span>
-        <span class="dropdown__item-text">Neringa</span>
-      </label>
+      <div v-click-outside="hide" class="dropdown__list">
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Šilutės r. sav.</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Pagėgių sav.</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Jurbarko sav.</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Tauragės sav.</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Klaipėdos r. sav.</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Klaipėdos miestas</span>
+        </label>
+        <label class="dropdown__item">
+          <span class="checkbox">
+            <input type="checkbox" class="checkbox__none" />
+            <span class="checkbox__style"></span>
+          </span>
+          <span class="dropdown__item-text">Neringa</span>
+        </label>
+      </div>
     </div>
   </div>
 </template>
@@ -124,6 +131,17 @@ export default {
     }
     .dropdown__body {
       display: block;
+      @media (max-width: 991.98px) {
+        display: flex;
+        opacity: 1;
+        pointer-events: visible;
+        transition-delay: 0s;
+      }
+    }
+    @media (max-width: 991.98px) {
+      .dropdown__list {
+        margin-bottom: 0%;
+      }
     }
   }
   &__head {
@@ -136,8 +154,22 @@ export default {
     text-align: left;
     color: #00404e;
     font-weight: 600;
+    @media (max-width: 991.98px) {
+      width: 52px;
+      height: 52px;
+      padding: unset;
+      justify-content: center;
+    }
+    @media (max-width: 575.98px) {
+      width: 40px;
+      height: 40px;
+    }
   }
-
+  &__text {
+    @media (max-width: 991.98px) {
+      display: none;
+    }
+  }
   &__icon {
     width: 24px;
     height: 24px;
@@ -146,11 +178,51 @@ export default {
     justify-content: center;
     align-items: center;
     transform: translateY(1px);
+    @media (max-width: 991.98px) {
+      display: none;
+    }
+  }
+  &__icon--mobile {
+    img {
+      width: 27px;
+      height: 27px;
+      @media (max-width: 575.98px) {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    @media (min-width: 992px) {
+      display: none;
+    }
   }
 
   &__body {
-    display: none;
     padding-bottom: 10px;
+    display: none;
+    @media (max-width: 991.98px) {
+      background: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      padding: 0;
+      z-index: 100;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition-delay: 0.3s;
+    }
+  }
+  &__list {
+    @media (max-width: 991.98px) {
+      background: #ffffff;
+      padding: 20px 0;
+      margin-bottom: -100%;
+      transition: 0.5s ease-out;
+    }
   }
 
   &__item {
