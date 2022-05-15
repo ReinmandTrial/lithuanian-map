@@ -35,14 +35,14 @@
           <h1 class="home-page__title">{{ homePageData.title }}</h1>
           <p class="home-page__descr">{{ homePageData.descr }}</p>
           <div class="home-page__btns">
-            <button type="button" class="home-page__btn-red">
-              {{ homePageData.btns.create }}
-            </button>
             <button
               type="button"
-              class="home-page__btn-white"
+              class="home-page__btn-red"
               @click="$emit('openMap')"
             >
+              {{ homePageData.btns.create }}
+            </button>
+            <button type="button" class="home-page__btn-white">
               {{ homePageData.btns.play }}
             </button>
           </div>
@@ -52,21 +52,146 @@
         <h3 class="home-page__partners-title">
           {{ homePageData.partners.title }}
         </h3>
-        <div class="home-page__partners-slider partners-slider">
-          <div class="partners-slider__item">
-            <img src="@/assets/images/gargzdu-logo.png" alt="" />
-          </div>
-          <div class="partners-slider__item">
-            <img src="@/assets/images/aurage-logo.png" alt="" />
-          </div>
-          <div class="partners-slider__item">
-            <img src="@/assets/images/biblioteka-logo.png" alt="" />
-          </div>
-          <div class="partners-slider__item">
-            <img src="@/assets/images/rambuno-logo.png" alt="" />
-          </div>
-          <div class="partners-slider__item">
-            <img src="@/assets/images/swiming-logo.png" alt="" />
+        <div class="home-page__partners-slider partners-slider swiper">
+          <div class="partners-slider__wrapper swiper-wrapper">
+            <a
+              href="https://museums.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Lietuvos Muzieju Asociacija.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://www.gargzdumuziejus.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img src="@/assets/images/partners/MUZIEJAUS_LOGAS.png" alt="" />
+            </a>
+            <a
+              href="https://www.mlimuziejus.lt"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/MLIM LOGO pagrindinis.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://www.neringosmuziejai.lt"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/KokybiškesnisNERINGOS MUZIEJAI_Logotype_LT.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="http://www.vydunocentras.lt/vyduno-muziejus"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/kintuvydunocentrasGrafinis did rez.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://www.etnocentras.lt/lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Etno centras.logo..svg"
+                alt=""
+              />
+            </a>
+            <a
+              href="http://lrezoskc.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/LRKC-logo-2016-1-original.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://www.mazosioslietuvoskc.eu/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img src="@/assets/images/partners/kc_logo_[1]Geras.png" alt="" />
+            </a>
+            <a
+              href="https://www.taurageinfo.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Logotipas_Taurage.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="http://www.nemunodelta.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Nemuno_deltos_regioninis_parkas.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="www.visitneringa.com"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/AGILA-LOGO-2-SPALVOS.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://siluteinfo.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Šilutės turizmo ir informacijos centras.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://rambynoparkas.lrv.lt/lt/lankytojams"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img
+                src="@/assets/images/partners/Rambynoregiono parko.png"
+                alt=""
+              />
+            </a>
+            <a
+              href="https://www.silutevb.lt/"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img src="@/assets/images/partners/bibliotekos logo.png" alt="" />
+            </a>
+            <a
+              href="www.jurbarkas.info"
+              target="_blank"
+              class="partners-slider__item swiper-slide"
+            >
+              <img src="@/assets/images/partners/jur turizm-01.svg" alt="" />
+            </a>
           </div>
         </div>
       </div>
@@ -80,6 +205,7 @@
       v-if="littleLithuaniaIsOpen"
       @OpenBurgerFromHome="$emit('OpenBurgerFromHome')"
       @openHomeFromHeader="$emit('openHomeFromHeader')"
+      @openMap="$emit('openMap')"
     />
     <vane-road
       v-if="vaneRoadIsOpen"
@@ -99,6 +225,8 @@ import Vfooter from './footer.vue'
 import contactsPage from './contactsPage.vue'
 import littleLithuania from './littleLithuania.vue'
 import vaneRoad from './vaneRoad.vue'
+import Swiper from 'swiper'
+
 export default {
   name: 'allPages',
   data() {
@@ -143,12 +271,30 @@ export default {
       },
     },
   },
-  methods: {},
   components: {
     'contacts-page': contactsPage,
     'little-lithuania': littleLithuania,
     'vane-road': vaneRoad,
     'v-footer': Vfooter,
+  },
+  methods: {},
+  mounted: function () {
+    new Swiper('.partners-slider', {
+      autoplay: {
+        delay: 300,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 'auto',
+      loop: true,
+      breakpoints: {
+        576: {
+          spaceBetween: 25,
+        },
+        320: {
+          spaceBetween: 13,
+        },
+      },
+    })
   },
 }
 </script>
@@ -314,6 +460,7 @@ header {
     font-size: 24px;
     margin-bottom: 50px;
     padding: 0 15px;
+    text-transform: uppercase;
     text-align: center;
     @media (max-width: 575.98px) {
       font-size: 20px;
@@ -322,26 +469,32 @@ header {
   }
 
   &__partners-slider {
+    max-width: 996px;
+    margin: 0 auto;
   }
 }
 .partners-slider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  column-gap: 18px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // overflow-x: auto;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+  min-width: 0;
+  // column-gap: 18px;
   @media (max-width: 575.98px) {
-    column-gap: 13px;
+    // column-gap: 13px;
   }
 
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+  // &::-webkit-scrollbar {
+  //   width: 0;
+  //   height: 0;
+  // }
   &__item {
+    display: block;
     flex: none;
+    width: fit-content;
+    height: 115px;
     @media (max-width: 767.98px) {
       height: 85px;
     }

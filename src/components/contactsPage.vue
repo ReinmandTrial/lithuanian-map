@@ -112,7 +112,7 @@ export default {
         title: 'KONTAKTAI',
         subtitle: 'Susisiekite su mumis',
         facebookText: 'Facebook paskyroje',
-        facebookLink: 'https://www.facebook.com/',
+        facebookLink: 'https://www.facebook.com/vetrungiukelias',
         text: `Į kilusius klausimus atsakysime Jums kuo galima greičiau. Daugiau informacijos apie naujienas rasite mūsų`,
         email: 'info@siluteinfo.lt',
       },

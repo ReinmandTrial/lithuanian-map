@@ -251,8 +251,8 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      pagesIsOpen: false,
-      homeIsOpen: false,
+      pagesIsOpen: true,
+      homeIsOpen: true,
       contactsIsOpen: false,
       littleLithuaniaIsOpen: false,
       vaneRoadIsOpen: false,

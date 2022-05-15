@@ -10,11 +10,7 @@
             {{ footerData.text }}
           </p>
           <div class="footer__buttons">
-            <button
-              type="button"
-              class="footer__btn footer__btn-white"
-              @click="$emit('openMap')"
-            >
+            <button type="button" class="footer__btn footer__btn-white">
               {{ footerData.buttons.play }}
             </button>
             <button
@@ -35,10 +31,18 @@
           </a>
         </p>
         <div class="footer__socials">
-          <a href="#" class="footer__socials-item">
+          <a
+            target="_blank"
+            :href="footerData.links.facebook"
+            class="footer__socials-item"
+          >
             <img src="@/assets/images/svg-icons/facebook.svg" alt="" />
           </a>
-          <a href="#" class="footer__socials-item">
+          <a
+            target="_blank"
+            :href="footerData.links.youtube"
+            class="footer__socials-item"
+          >
             <img src="@/assets/images/svg-icons/youtube.svg" alt="" />
           </a>
         </div>
@@ -50,13 +54,18 @@
 <script>
 export default {
   name: 'v-footer',
+
   data() {
     return {
       footerData: {
         text:
           'VĖTRUNGIŲ KELIAS, tai žaidimas – kelionė norintiems ne tik įdomiai praleisti laiką, bet ir pažinti Mažąją Lietuvą!',
         rights: 'Visos teisės priklauso © 2022 “Vėtrungių kelias”, ',
-        email: 'info@siluteinfo.lt',
+        email: 'info@vetrungiukelias.lt',
+        links: {
+          facebook: 'https://www.facebook.com/vetrungiukelias',
+          youtube: 'https://youtu.be/Eij3CNpQxmQ',
+        },
         buttons: {
           play: 'Žaisk vėtrungių kelią',
           contacts: 'Kontaktai',

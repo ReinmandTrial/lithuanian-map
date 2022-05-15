@@ -570,17 +570,7 @@ export default {
     color: #ffffff;
     cursor: default;
   }
-  @keyframes cloudX {
-    50% {
-      transform: translateX(-100vw);
-    }
-    50.001% {
-      transform: translateX(100vw);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
+
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
@@ -685,7 +675,46 @@ export default {
       animation: rotate 3s linear infinite;
     }
   }
-
+  @keyframes cloudX1 {
+    71% {
+      left: -13%;
+    }
+    71.001% {
+      left: 100%;
+    }
+    100% {
+    }
+  }
+  @keyframes cloudX2 {
+    14% {
+      left: -13%;
+    }
+    14.001% {
+      left: 100%;
+    }
+    100% {
+    }
+  }
+  @keyframes cloudX3 {
+    30% {
+      left: -18%;
+    }
+    30.001% {
+      left: 100%;
+    }
+    100% {
+    }
+  }
+  @keyframes cloudX4 {
+    68% {
+      left: -11%;
+    }
+    68.001% {
+      left: 100%;
+    }
+    100% {
+    }
+  }
   &__clouds {
     img {
       pointer-events: none;
@@ -697,7 +726,7 @@ export default {
     width: 13%;
     top: 45%;
     left: 71%;
-    animation: cloudX 50s linear infinite;
+    animation: cloudX1 50s linear infinite;
     z-index: 2;
   }
   &__cloud-2 {
@@ -705,7 +734,7 @@ export default {
     width: 11%;
     top: 65%;
     left: 1%;
-    animation: cloudX 90s linear infinite;
+    animation: cloudX2 90s linear infinite;
     z-index: 2;
   }
   &__cloud-3 {
@@ -713,8 +742,7 @@ export default {
     width: 18%;
     top: 26%;
     left: 10%;
-
-    animation: cloudX 130s linear infinite;
+    animation: cloudX3 130s linear infinite;
     z-index: 2;
   }
   &__cloud-4 {
@@ -722,7 +750,7 @@ export default {
     width: 11%;
     top: 16%;
     left: 55%;
-    animation: cloudX 66s linear infinite;
+    animation: cloudX4 66s linear infinite;
     z-index: 2;
   }
 

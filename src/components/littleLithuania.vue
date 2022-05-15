@@ -37,7 +37,11 @@
         </div>
         <div class="little-lithuania__row">
           <p class="little-lithuania__descr">{{ littleLithuaniaData.descr }}</p>
-          <button type="button" class="little-lithuania__btn">
+          <button
+            type="button"
+            class="little-lithuania__btn"
+            @click="$emit('openMap')"
+          >
             {{ littleLithuaniaData.buttonText }}
           </button>
         </div>

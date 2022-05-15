@@ -32,7 +32,15 @@
           </div>
           <p class="vane-road__text" v-html="vaneRoadData.text"></p>
         </div>
-        <div class="vane-road__video" v-html="vaneRoadData.video"></div>
+        <div class="vane-road__video">
+          <iframe
+            src="https://www.youtube.com/embed/8ERGFT2E_Gk"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
         <p class="vane-road__descr">{{ vaneRoadData.descr }}</p>
         <div class="vane-road__row">
           <div class="vane-road__col">
@@ -71,8 +79,6 @@ export default {
         image: '',
         text:
           '<strong>VĖTRUNGIŲ KELIAS</strong> – tai žaidimas – kelionė norintiems ne tik įdomiai praleisti laiką, bet ir pažinti Mažąją Lietuvą! <br> Idėja kurti „Vėtrungių kelią“ kilo Šilutės kultūros bendruomenei, o dabar platus partnerių ratas iš 7-ių regiono savivaldybių, siūlo išradingai atrasti unikalų Mažosios Lietuvos kraštą. Šilutės kultūros centras nuo 2013 metų įgyvendina kultūrinio turizmo projektą „Vėtrungių kelias“, kuris kasmet tampa vis interaktyvesnis ir vis labiau įtraukiantis kiekvieną dalyvį. ',
-        video:
-          '<iframe width="560" height="315" src="https://www.youtube.com/embed/BHACKCNDMW8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         descr:
           'PRADĖK ĮSPŪDŽIŲ KUPINĄ KELIONĘ „VĖTRUNGIU KELIU“ PO MAŽĄJĄ LIETUVĄ!',
         routeText:
@@ -147,11 +153,10 @@ export default {
     margin-bottom: 50px;
     width: 100%;
     height: 0;
-    padding-bottom: 34.2%;
+    padding-bottom: 56.25%;
     position: relative;
     @media (max-width: 575.98px) {
       margin-bottom: 20px;
-      padding-bottom: 42.2%;
     }
     iframe,
     video {
