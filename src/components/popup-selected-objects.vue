@@ -33,13 +33,14 @@
             </svg>
           </button>
         </div>
-        <button
+        <a
+          :href="'http://vk.interita.lt/wp-json/vk/v1/ids?array=' + ids"
+          download
           v-if="selectedObjects.length > 0"
-          type="button"
           class="popup-selected-objects__download"
         >
           Atsisiųsti PDF formatu
-        </button>
+        </a>
         <ul
           v-if="selectedObjects.length > 0"
           class="popup-selected-objects__list"
@@ -91,6 +92,16 @@ export default {
     },
     addCardToSelected: function (data) {
       this.$emit('addCardToSelected', data)
+    },
+  },
+  computed: {
+    ids: function () {
+      var ids = []
+      this.selectedObjects.forEach((el) => {
+        ids.push(el.id)
+      })
+
+      return ids
     },
   },
   directives: {

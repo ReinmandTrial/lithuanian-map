@@ -56,14 +56,14 @@
             <div class="contacts__inputs-row">
               <input
                 required
-                type="text"
+                type="email"
                 class="input"
                 :placeholder="contactsFormData.email"
                 v-model="submitData.email"
               />
               <input
                 required
-                type="text"
+                type="number"
                 class="input"
                 :placeholder="contactsFormData.phoneNum"
                 v-model="submitData.phoneNum"
@@ -297,6 +297,14 @@ export default {
   width: 100%;
   //   max-width: 300px;
   color: #383838;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 textarea.input {
   max-width: unset;

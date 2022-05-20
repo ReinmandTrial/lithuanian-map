@@ -44,7 +44,11 @@
         <img src="@/assets/images/logo.svg" alt="Logo" />
       </button>
       <div class="options">
-        <v-dropdown />
+        <v-dropdown
+          :data_marks="data_marks"
+          @regionCount="returnRegionCount"
+          :tagsCount="tagsCount"
+        />
         <marks-selected
           :selectedObjects="selectedObjects"
           @click.native="openPopup"
@@ -67,7 +71,12 @@
           </svg>
         </button>
       </div>
-      <map-svg :marks="marks" @addCardToSelected="addCardToSelected" />
+      <map-svg
+        :marks="data_marks"
+        @addCardToSelected="addCardToSelected"
+        :regionCount="regionCount"
+        @tagsCount="returnTagsCount"
+      />
 
       <popup-selected-objects
         :selectedObjects="selectedObjects"
@@ -239,6 +248,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import '@/assets/scss/style.scss'
 import allPages from './components/homePage.vue'
 import mapSvg from './components/map-svg.vue'
@@ -251,63 +261,21 @@ export default {
     return {
       selectedObjects: [],
       openBurger: false,
-      pagesIsOpen: true,
-      homeIsOpen: true,
+      pagesIsOpen: false,
+      homeIsOpen: false,
       contactsIsOpen: false,
       littleLithuaniaIsOpen: false,
       vaneRoadIsOpen: false,
-      marks: [
-        {
-          id: 1,
-          type: 'games',
-          markAxysX: 21.1691,
-          markAxysY: 55.920985,
-          title: 'Kvėdarnos apžvalgos bokštas',
-          descr:
-            'Kvėdarna is a town in Šilalė district municipality, Tauragė County, Lithuania. According to the 2011 census, the town has a population of 1,597 people.',
-        },
-        {
-          id: 2,
-          type: 'food',
-          markAxysX: 21.996693,
-          markAxysY: 55.396987,
-          title: 'Town',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 3,
-          type: 'buildings',
-          markAxysX: 22.996693,
-          markAxysY: 54.99,
-          title: 'Town2',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 4,
-          type: 'nature',
-          markAxysX: 22.2,
-          markAxysY: 55.1,
-          title: 'Town3',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 5,
-          type: 'food',
-          markAxysX: 22.996693,
-          markAxysY: 55.6987,
-          title: 'Town4',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-        {
-          id: 6,
-          type: 'books',
-          markAxysX: 21.05,
-          markAxysY: 55.5,
-          title: 'Town5',
-          descr: ' Lorem ipsum dolor sit amet.',
-        },
-      ],
+      data_marks: null,
+      regionCount: null,
+      tagsCount: null,
     }
+  },
+  beforeCreate: function () {
+    axios
+      .get('http://vk.interita.lt/wp-json/vk/v1/posts')
+      .then((response) => (this.data_marks = response.data))
+      .catch((error) => console.log(error))
   },
   components: {
     'all-pages': allPages,
@@ -379,8 +347,16 @@ export default {
         }, 300)
       }
     },
+    returnRegionCount: function (data) {
+      this.regionCount = data
+    },
+    returnTagsCount: function (data) {
+      this.tagsCount = data
+    },
   },
-
+  mounted: function () {
+    // console.log(this.returnTagsCount())
+  },
   computed: {},
 }
 </script>

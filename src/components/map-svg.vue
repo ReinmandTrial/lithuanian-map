@@ -188,7 +188,7 @@
       <input
         type="range"
         min="1"
-        max="2"
+        max="3"
         value="1"
         class="zoom-panel__slider"
         id="zoom"
@@ -248,11 +248,12 @@
 <script>
 import Mark from './mark.vue'
 import MarkBtn from './mark-btn.vue'
-// import VueHM from 'vue-'
+
 export default {
   name: 'mapSvg',
   data() {
     return {
+      countTags: 0,
       mapWidth: 2000,
       mapHeight: null,
       coefMapHeight: 0.6094,
@@ -276,28 +277,53 @@ export default {
       filter: [
         {
           id: 1,
-          descr: 'Nature',
-          type: 'nature',
+          descr: 'Gamta',
+          type: 'gamta',
+          tags_all: [
+            {
+              slug: 'gamta',
+            },
+          ],
         },
         {
           id: 2,
-          descr: 'Buildings',
-          type: 'buildings',
+          descr: 'Kult\u016bra',
+          type: 'kultura',
+          tags_all: [
+            {
+              slug: 'kultura',
+            },
+          ],
         },
         {
           id: 3,
-          descr: 'Food',
-          type: 'food',
+          descr: 'Maitinimas',
+          type: 'maitinimas',
+          tags_all: [
+            {
+              slug: 'maitinimas',
+            },
+          ],
         },
         {
           id: 4,
           descr: 'Pramogos',
-          type: 'games',
+          type: 'pramogos',
+          tags_all: [
+            {
+              slug: 'pramogos',
+            },
+          ],
         },
         {
           id: 5,
-          descr: 'Books',
-          type: 'books',
+          descr: 'Istorija',
+          type: 'istorija',
+          tags_all: [
+            {
+              slug: 'istorija',
+            },
+          ],
         },
       ],
     }
@@ -309,10 +335,11 @@ export default {
         return []
       },
     },
-    marks: {
-      type: Array,
+    marks: null,
+    regionCount: {
+      type: Number,
       default() {
-        return []
+        return null
       },
     },
   },
@@ -394,7 +421,7 @@ export default {
       })
     },
     zoomPlus: function () {
-      if (this.zoomvalue < 1.9) {
+      if (this.zoomvalue < 2.9) {
         this.zoomvalue += 0.2
       }
     },
@@ -407,7 +434,7 @@ export default {
     zoomOnScroll: function (e) {
       if (e.deltaY > 0 && this.zoomvalue > 1) {
         this.zoomvalue -= 0.2
-      } else if (e.deltaY < 0 && this.zoomvalue < 1.9) {
+      } else if (e.deltaY < 0 && this.zoomvalue < 2.9) {
         this.zoomvalue += 0.2
       }
 
@@ -416,78 +443,83 @@ export default {
     currectZoom: function () {
       if (this.zoomvalue < 1) {
         this.zoomvalue = 1
-      } else if (this.zoomvalue > 2) {
-        this.zoomvalue = 2
+      } else if (this.zoomvalue > 3) {
+        this.zoomvalue = 3
       }
     },
     activeFilter: function (e) {
       const filterItems = document.querySelectorAll('.marks-filter__item')
       var thisElem = e.target.closest('.marks-filter__item')
+      var thisElemType = thisElem
+        .querySelector('.mark-btn')
+        .getAttribute('data-tag')
       var markItems = document
         .querySelector('.marks-container')
         .querySelectorAll('.mark-btn')
-      var count = 0
-      var thisElemType = thisElem.querySelector('.mark-btn').classList[1]
 
-      document.querySelector('.marks-filter').classList.add('work')
-
-      if (!thisElem.classList.contains('active')) {
-        thisElem.classList.remove('not-active')
-        thisElem.classList.add('active')
+      if (!thisElem.classList.contains('active-t')) {
+        thisElem.classList.remove('not-active-t')
+        thisElem.classList.add('active-t')
         markItems.forEach((markItem) => {
-          markItem.classList.add('not-active')
-          if (thisElemType == markItem.classList[1]) {
-            markItem.classList.remove('not-active')
-            markItem.classList.add('active')
+          markItem.classList.add('not-active-t')
+          if (thisElemType == markItem.getAttribute('data-tag')) {
+            markItem.classList.remove('not-active-t')
+            markItem.classList.add('active-t')
           }
         })
+        this.countTags++
       } else {
-        thisElem.classList.add('not-active')
-        thisElem.classList.remove('active')
+        thisElem.classList.add('not-active-t')
+        thisElem.classList.remove('active-t')
         markItems.forEach((markItem) => {
-          if (thisElemType == markItem.classList[1]) {
-            markItem.classList.add('not-active')
-            markItem.classList.remove('active')
+          if (thisElemType == markItem.getAttribute('data-tag')) {
+            markItem.classList.add('not-active-t')
+            markItem.classList.remove('active-t')
           }
         })
+        this.countTags--
       }
 
       filterItems.forEach((filterItem) => {
-        if (!filterItem.classList.contains('active')) {
-          filterItem.classList.add('not-active')
-        } else {
-          count++
+        if (!filterItem.classList.contains('active-t')) {
+          filterItem.classList.add('not-active-t')
         }
       })
-      if (count == 0) {
-        document.querySelector('.marks-filter').classList.remove('work')
+
+      if (
+        this.countTags == 0
+        // && this.regionCount == 0
+      ) {
         filterItems.forEach((filterItem) => {
-          filterItem.classList.remove('not-active')
+          filterItem.classList.remove('not-active-t')
         })
         markItems.forEach((markItem) => {
-          markItem.classList.remove('not-active')
-          markItem.classList.remove('active')
+          markItem.classList.remove('not-active-t')
+          markItem.classList.remove('active-t')
         })
       }
+      this.$emit('tagsCount', this.countTags)
     },
     hoverFilter: function (e) {
-      if (!document.querySelector('.marks-filter').classList.contains('work')) {
+      if (this.countTags == 0) {
         var thisElem = e.target.closest('.marks-filter__item')
         var markItems = document
           .querySelector('.marks-container')
           .querySelectorAll('.mark-btn')
-        var thisElemType = thisElem.querySelector('.mark-btn').classList[1]
+        var thisElemType = thisElem
+          .querySelector('.mark-btn')
+          .getAttribute('data-tag')
 
         markItems.forEach((markItem) => {
           markItem.classList.add('not-hover')
-          if (thisElemType == markItem.classList[1]) {
+          if (thisElemType == markItem.getAttribute('data-tag')) {
             markItem.classList.remove('not-hover')
           }
         })
       }
     },
     hoverFilterEnd: function () {
-      if (!document.querySelector('.marks-filter').classList.contains('work')) {
+      if (this.countTags == 0) {
         var markItems = document
           .querySelector('.marks-container')
           .querySelectorAll('.mark-btn')
@@ -518,6 +550,9 @@ export default {
   },
   watch: {
     zoomvalue: ['currectZoom', 'minMaxPos'],
+  },
+  created: function () {
+    this.$emit('tagsCount', this.countTags)
   },
   mounted: function () {
     this.setMapWidth()
@@ -947,14 +982,14 @@ export default {
       transform: translateX(-50%) scale(1);
       transition-delay: 0.1s;
     }
-    &.active {
+    &.active-t {
       .marks-filter__cancel {
         opacity: 1;
         top: calc(100% + 12px);
         transform: translateX(-50%) scale(1);
       }
     }
-    &.not-active:not(:hover) {
+    &.not-active-t:not(:hover) {
       .mark-btn {
         background: #ced4d1 !important;
       }

@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="hide" :class="{ openDropdown }" class="dropdown">
+  <div :class="{ openDropdown }" class="dropdown">
     <button
       type="button"
       @click="openDropdown = !openDropdown"
@@ -20,54 +20,21 @@
     </button>
     <div class="dropdown__body">
       <div v-click-outside="hide" class="dropdown__list">
-        <label class="dropdown__item">
+        <label
+          v-for="(dropdownItem, idx) in testA()"
+          :key="idx"
+          class="dropdown__item"
+        >
           <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
+            <input
+              type="checkbox"
+              class="checkbox__none"
+              v-model="dropdownItem.checked"
+              @change="hideMarks(dropdownItem)"
+            />
             <span class="checkbox__style"></span>
           </span>
-          <span class="dropdown__item-text">Šilutės r. sav.</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Pagėgių sav.</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Jurbarko sav.</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Tauragės sav.</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Klaipėdos r. sav.</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Klaipėdos miestas</span>
-        </label>
-        <label class="dropdown__item">
-          <span class="checkbox">
-            <input type="checkbox" class="checkbox__none" />
-            <span class="checkbox__style"></span>
-          </span>
-          <span class="dropdown__item-text">Neringa</span>
+          <span class="dropdown__item-text">{{ dropdownItem.text }}</span>
         </label>
       </div>
     </div>
@@ -80,16 +47,170 @@ export default {
   name: 'dropDown',
   data() {
     return {
+      countChecked: 0,
       openDropdown: false,
+      dropdownItems: [
+        {
+          checked: false,
+          text: '\u0160ilut\u0117s r. sav.',
+        },
+        {
+          checked: false,
+          text: 'Pag\u0117gi\u0173 sav.',
+        },
+        {
+          checked: false,
+          text: 'Jurbarko r. sav.',
+        },
+        {
+          checked: false,
+          text: 'Taurag\u0117s r. sav.',
+        },
+        {
+          checked: false,
+          text: 'Klaip\u0117dos r. sav.',
+        },
+        {
+          checked: false,
+          text: 'Klaip\u0117dos m. sav.',
+        },
+        {
+          checked: false,
+          text: 'Neringos sav.',
+        },
+      ],
     }
   },
+  props: {
+    data_marks: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    tagsCount: null,
+  },
   methods: {
-    hide() {
-      this.openDropdown = false
+    hide(e) {
+      if (
+        !e.target.closest('.dropdown__list') &&
+        !e.target.closest('.dropdown__head')
+      ) {
+        this.openDropdown = false
+      }
+    },
+    hideMarks: function (item) {
+      let thisRegion = item.text
+      const marksDOM = document.querySelectorAll('.mark')
+      if (this.tagsCount != 0) {
+        if (item.checked === true) {
+          marksDOM.forEach((mark) => {
+            if (
+              mark.querySelector('.mark-btn').classList.contains('active-t')
+            ) {
+              if (mark.getAttribute('data-region') == thisRegion) {
+                mark.querySelector('.mark-btn').classList.remove('not-active-r')
+                mark.querySelector('.mark-btn').classList.add('active-r')
+              } else {
+                mark.querySelector('.mark-btn').classList.add('not-active-r')
+              }
+            }
+          })
+          this.countChecked++
+        } else if (item.checked === false) {
+          marksDOM.forEach((mark) => {
+            if (
+              mark.querySelector('.mark-btn').classList.contains('active-t')
+            ) {
+              if (mark.getAttribute('data-region') == thisRegion) {
+                mark.querySelector('.mark-btn').classList.remove('active-r')
+                mark.querySelector('.mark-btn').classList.add('not-active-r')
+              }
+            }
+          })
+          this.countChecked--
+          this.$emit('regionCount', this.countChecked)
+          if (
+            this.countChecked == 0
+            //  && this.tagsCount == 0
+          ) {
+            marksDOM.forEach((mark) => {
+              mark.querySelector('.mark-btn').classList.remove('not-active-r')
+            })
+          }
+        }
+      } else {
+        if (item.checked === true) {
+          marksDOM.forEach((mark) => {
+            if (mark.getAttribute('data-region') == thisRegion) {
+              mark.querySelector('.mark-btn').classList.remove('not-active-r')
+              mark.querySelector('.mark-btn').classList.add('active-r')
+            } else {
+              mark.querySelector('.mark-btn').classList.add('not-active-r')
+            }
+          })
+          this.countChecked++
+        } else if (item.checked === false) {
+          marksDOM.forEach((mark) => {
+            if (mark.getAttribute('data-region') == thisRegion) {
+              mark.querySelector('.mark-btn').classList.remove('active-r')
+              mark.querySelector('.mark-btn').classList.add('not-active-r')
+            }
+          })
+          this.countChecked--
+          this.$emit('regionCount', this.countChecked)
+          if (
+            this.countChecked == 0
+            //  && this.tagsCount == 0
+          ) {
+            marksDOM.forEach((mark) => {
+              mark.querySelector('.mark-btn').classList.remove('not-active-r')
+            })
+          }
+        }
+      }
+    },
+    testA: function () {
+      if (this.data_marks != null) {
+        var newArr = []
+        this.data_marks.forEach((mark) => {
+          newArr.push(mark.category_title)
+        })
+        const uniqueSet = new Set(newArr)
+        var testArr = [...uniqueSet]
+        var testArr2 = []
+        testArr.forEach((el) => {
+          let newObj = {
+            checked: false,
+            text: el,
+          }
+          testArr2.push(newObj)
+        })
+
+        return testArr2
+      }
     },
   },
+  watch: {},
+  computed: {},
   directives: {
     ClickOutside,
+  },
+  beforeMount() {
+    // console.log(this.marks)
+    // var newArr = []
+    // this.marks.forEach((mark) => {
+    //   newArr.push(mark.category_title)
+    // })
+    // const uniqueSet = new Set(newArr)
+    // this.testArr = [...uniqueSet]
+    // console.log(this.testArr)
+  },
+  mounted: function () {
+    this.$emit('regionCount', this.countChecked)
+
+    // console.log(this.marks)
+    // console.log(this.tagsCount)
   },
 }
 </script>

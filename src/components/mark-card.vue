@@ -1,13 +1,11 @@
 <template>
   <div class="mark-card">
     <div class="mark-card__left">
-      <img src="@/assets/images/card-img.jpg" alt="" />
+      <img :src="mark.featured_image" alt="" />
     </div>
     <div class="mark-card__right">
       <h4 class="mark-card__title">{{ mark.title }}</h4>
-      <p class="mark-card__description">
-        {{ mark.descr }}
-      </p>
+      <p class="mark-card__description" v-html="mark.content"></p>
       <div class="mark-card__button">
         <button class="btn-red" v-on:click.stop="addCardToSelected">
           Pasižymėti objektą
@@ -25,12 +23,7 @@ export default {
     return {}
   },
   props: {
-    mark: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
+    mark: null,
   },
   methods: {
     addCardToSelected: function (event) {
@@ -49,7 +42,7 @@ export default {
 .mark-card {
   cursor: default;
   overflow: hidden;
-  // height: 158px;
+  min-height: 158px;
   width: 365px;
   border-radius: 8.59016px;
   background: #ffffff;
@@ -81,8 +74,8 @@ export default {
     line-height: 22px;
     font-weight: 700;
     margin-bottom: 6px;
-    max-height: 22px;
-    white-space: nowrap;
+    // max-height: 22px;
+    // white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #212b36;
@@ -94,7 +87,7 @@ export default {
     margin-bottom: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 57px;
+    // max-height: 57px;
     color: #212b36;
   }
   &__button {

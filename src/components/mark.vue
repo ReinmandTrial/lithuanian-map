@@ -5,10 +5,11 @@
       v-for="mark in marks"
       :key="mark.id"
       v-bind:style="{
-        top: calcAxysY(mark.markAxysY),
-        left: calcAxysX(mark.markAxysX),
+        top: calcAxysY(mark.ilguma),
+        left: calcAxysX(mark.platuma),
         transform: 'scale(' + 1 / zoomvalue + ')',
       }"
+      :data-region="mark.category_title"
     >
       <mark-btn :mark="mark" @click.native="showCard" />
       <mark-card :mark="mark" @addCardToSelected="addCardToSelected" />
@@ -40,16 +41,11 @@ export default {
         return []
       },
     },
-    marks: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
+    marks: null,
   },
   methods: {
     calcAxysX: function (pos) {
-      const startMapX = 20.36
+      const startMapX = 20.44
       const endMapX = 24.05
       const deffMapX = endMapX - startMapX
       return ((pos - startMapX) / deffMapX) * 100 + '%'
@@ -106,18 +102,26 @@ export default {
 }
 .mark-btn {
   transition-delay: 0.2s;
-  &.active {
+  animation: zoomInBtn 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  @keyframes zoomInBtn {
+    from {
+      transform: scale(0);
+    }
+  }
+  &.active-t:not(&.not-active-r),
+  &.active-r:not(&.not-active-t) {
     transition-delay: 0s;
   }
   &:hover {
     background: #db3831;
     transition-delay: 0s;
   }
-  &.not-hover:not(&.active) {
+  &.not-hover:not(.active-t):not(.active-r) {
     background: #ced4d1 !important;
     transition-delay: 0s;
   }
-  &.not-active:not(&.active) {
+  &.not-active-t:not(&.active-t),
+  &.not-active-r:not(&.active-r) {
     background: #ced4d1 !important;
     transform: scale(0);
     transition-delay: 0s;
