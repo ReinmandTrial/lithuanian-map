@@ -274,7 +274,7 @@ export default {
   },
   beforeCreate: function () {
     axios
-      .get('http://vk.interita.lt/wp-json/vk/v1/posts')
+      .get('https://vk.interita.lt/wp-json/vk/v1/posts')
       .then((response) => (this.data_marks = response.data))
       .catch((error) => console.log(error))
   },

@@ -34,7 +34,7 @@
           </button>
         </div>
         <a
-          :href="'http://vk.interita.lt/wp-json/vk/v1/ids?array=' + ids"
+          :href="'https://vk.interita.lt/wp-json/vk/v1/ids?array=' + ids"
           download
           v-if="selectedObjects.length > 0"
           class="popup-selected-objects__download"
