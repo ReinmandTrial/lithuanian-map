@@ -260,6 +260,7 @@ export default {
   data() {
     return {
       selectedObjects: [],
+      popupIsOpen: false,
       openBurger: false,
       pagesIsOpen: false,
       homeIsOpen: false,

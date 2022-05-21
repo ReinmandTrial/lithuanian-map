@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="map" v-on:mousedown="mousedownMap"> -->
   <div
     class="map"
     v-hammer:pan="move"
@@ -24,12 +23,18 @@
           }"
         >
           <div class="map__wrap" :style="{ width: mapWidth + 'px' }">
-            <!-- <img src="@/assets/images/Base_Map_SVG.svg" alt="map" /> -->
-            <img
-              src="@/assets/images/Base_Map_SVG.jpg"
-              alt="map"
-              @mousedown.prevent=""
-            />
+            <picture>
+              <source
+                type="image/jpg"
+                media="(max-width: 768px)"
+                srcset="@/assets/images/Base_Map_SVG--mob.jpg"
+              />
+              <img
+                src="@/assets/images/Base_Map_SVG.jpg"
+                alt="map"
+                @mousedown.prevent=""
+              />
+            </picture>
 
             <div class="map__jachts">
               <div class="map__jacht-1">

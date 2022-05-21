@@ -5,7 +5,12 @@
     :data-tag="markTest.tags_all[0].slug"
     v-bind:style="{ background: MarkBtnBackground() }"
     v-html="MarkBtnImage()"
-  ></button>
+  >
+    <label for="" class="checkbox">
+      <input type="checkbox" class="checkbox-none" />
+      <span class="checkbox-style"></span>
+    </label>
+  </button>
 </template>
 
 <script>
@@ -72,7 +77,7 @@ export default {
   created() {
     this.markTest = this.mark
     if (this.mark.tags_all.length === 0) {
-      console.log('find')
+      // console.log('find')
       this.markTest.tags_all.push({ slug: 'undef' })
     }
   },
