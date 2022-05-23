@@ -262,8 +262,8 @@ export default {
       selectedObjects: [],
       popupIsOpen: false,
       openBurger: false,
-      pagesIsOpen: false,
-      homeIsOpen: false,
+      pagesIsOpen: true,
+      homeIsOpen: true,
       contactsIsOpen: false,
       littleLithuaniaIsOpen: false,
       vaneRoadIsOpen: false,
@@ -274,7 +274,7 @@ export default {
   },
   beforeCreate: function () {
     axios
-      .get('https://vk.interita.lt/wp-json/vk/v1/posts')
+      .get('http://vk.interita.lt/wp-json/vk/v1/posts')
       .then((response) => (this.data_marks = response.data))
       .catch((error) => console.log(error))
   },

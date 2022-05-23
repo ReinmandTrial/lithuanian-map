@@ -5,6 +5,9 @@
     v-hammer:panend="moveEnd"
     @resize="setMapWidth"
   >
+    <div v-if="showPreloader" class="preloader">
+      <img ref="preloaderGif" src="@/assets/images/preloader.gif" alt="" />
+    </div>
     <div
       class="map__scale"
       :style="{ transform: 'scale(' + zoomvalue + ')' }"
@@ -331,6 +334,8 @@ export default {
           ],
         },
       ],
+      showPreloader: true,
+      // gifSrc: this.$refs.preloaderGif,
     }
   },
   props: {
@@ -544,6 +549,9 @@ export default {
         this.mapWidth = window.innerHeight / this.coefMapHeight
       }
     },
+    hidePreloader: function () {
+      this.showPreloader = false
+    },
   },
   computed: {
     mapX: function () {
@@ -563,13 +571,38 @@ export default {
     this.setMapWidth()
     window.addEventListener('resize', this.setMapWidth)
     this.minMaxPos()
+
+    const gifSrc = this.$refs.preloaderGif.getAttribute('src')
+    this.$refs.preloaderGif.setAttribute('src', gifSrc)
+    setTimeout(() => {
+      this.$el.addEventListener('load', this.hidePreloader())
+    }, 3000)
   },
   destroyed: function () {
     window.removeEventListener('resize', this.setMapWidth)
+
+    this.$el.removeEventListener('load', this.hidePreloader())
+    this.showPreloader = true
   },
 }
 </script>
+
 <style lang="scss" scoped>
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f7f5f7;
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 500px;
+  }
+}
 .map {
   display: flex;
   justify-content: center;
