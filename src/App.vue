@@ -274,7 +274,7 @@ export default {
   },
   beforeCreate: function () {
     axios
-      .get('http://vk.interita.lt/wp-json/vk/v1/posts')
+      .get('https://vetrungiukelias.lt/api/wp-json/vk/v1/posts')
       .then((response) => (this.data_marks = response.data))
       .catch((error) => console.log(error))
   },
@@ -357,6 +357,21 @@ export default {
   },
   mounted: function () {
     // console.log(this.returnTagsCount())
+     async function get() {
+      await axios
+        .get('http://mapster.bpinside.site/guide/rating', {
+          headers: {
+            Authorization: '793f492b-016a-479a-968b-24145ae24b57',
+          },
+        })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+    get()
   },
   computed: {},
 }

@@ -4,6 +4,7 @@
     v-hammer:pan="move"
     v-hammer:panend="moveEnd"
     @resize="setMapWidth"
+    @load="onLoadEvent()"
   >
     <div v-if="showPreloader" class="preloader">
       <img ref="preloaderGif" src="@/assets/images/preloader.gif" alt="" />
@@ -261,6 +262,7 @@ export default {
   name: 'mapSvg',
   data() {
     return {
+      showPreloader: true,
       countTags: 0,
       mapWidth: 2000,
       mapHeight: null,
@@ -334,7 +336,6 @@ export default {
           ],
         },
       ],
-      showPreloader: true,
       // gifSrc: this.$refs.preloaderGif,
     }
   },
@@ -549,8 +550,12 @@ export default {
         this.mapWidth = window.innerHeight / this.coefMapHeight
       }
     },
+    onLoadEvent() {
+      console.log('load')
+    },
     hidePreloader: function () {
       this.showPreloader = false
+      console.log('load')
     },
   },
   computed: {
@@ -575,13 +580,13 @@ export default {
     const gifSrc = this.$refs.preloaderGif.getAttribute('src')
     this.$refs.preloaderGif.setAttribute('src', gifSrc)
     setTimeout(() => {
-      this.$el.addEventListener('load', this.hidePreloader())
+      this.hidePreloader()
     }, 3000)
   },
   destroyed: function () {
     window.removeEventListener('resize', this.setMapWidth)
 
-    this.$el.removeEventListener('load', this.hidePreloader())
+    // this.$el.removeEventListener('load', this.hidePreloader())
     this.showPreloader = true
   },
 }

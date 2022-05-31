@@ -36,7 +36,7 @@
             {{ contactsData.email }}
           </a>
         </div>
-        <form class="contacts__form" @submit.prevent="onSubmit">
+        <div class="contacts__form">
           <div class="contacts__inputs">
             <div class="contacts__inputs-row">
               <input
@@ -88,18 +88,24 @@
                 </span>
                 <span class="contacts__policy-text" v-html="policyLink"></span>
               </label>
-              <button type="submit" class="contacts__btn-send">
+              <button
+                type="button"
+                class="contacts__btn-send"
+                @click="onSubmit()"
+              >
                 {{ contactsFormData.btnSend }}
               </button>
+              <!-- <a :href="test">test</a> -->
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import titleLine from './titleLine.vue'
 export default {
   name: 'contactsPage',
@@ -128,43 +134,64 @@ export default {
         btnSend: 'Siųsti užklausą',
       },
       submitData: {
-        name: null,
-        surname: null,
-        email: null,
-        phoneNum: null,
-        message: null,
+        name: '',
+        surname: '',
+        email: '',
+        phoneNum: '',
+        message: '',
       },
       sendSubmit: [],
     }
   },
   methods: {
     onSubmit() {
-      var newSubmitData = {
-        name: this.submitData.name,
-        surname: this.submitData.surname,
-        email: this.submitData.email,
-        phoneNum: this.submitData.phoneNum,
-        message: this.submitData.message,
-      }
+      console.log(this.submitData)
+      // `https://vetrungiukelias.lt/api/wp-json/vk/v1/email?vardas=${this.submitData.name}&pavarde=${this.submitData.surname}&pastas=${this.submitData.email}&telefonas=${this.submitData.phoneNum}&zinute=${this.submitData.message}`,
 
-      this.sendSubmit.push(newSubmitData)
-
-      this.submitData.name = null
-      this.submitData.surname = null
-      this.submitData.email = null
-      this.submitData.phoneNum = null
-      this.submitData.message = null
-
-      document.getElementById('policy').checked = false
+      axios
+        .get(
+          `https://vetrungiukelias.lt/api/wp-json/vk/v1/email?vardas=${this.submitData.name}&pavarde=${this.submitData.surname}&pastas=${this.submitData.email}&telefonas=${this.submitData.phoneNum}&zinute=${this.submitData.message}`,
+          {
+            // vardas: this.submitData.name,
+            // pavarde: this.submitData.surname,
+            // pastas: this.submitData.email,s
+            // telefonas: this.submitData.phoneNum,
+            // zinute: this.submitData.message,
+          },
+        )
+        .then((response) => {
+          console.log(response)
+          console.log(this.submitData)
+          this.submitData.name = ''
+          this.submitData.surname = ''
+          this.submitData.email = ''
+          this.submitData.phoneNum = ''
+          this.submitData.message = ''
+          document.getElementById('policy').checked = false
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     },
   },
   computed: {
+    test: function () {
+      return `https://vetrungiukelias.lt/api/wp-json/vk/v1/email?vardas=${this.submitData.name}&pavarde=${this.submitData.surname}&pastas=${this.submitData.email}&telefonas=${this.submitData.phoneNum}&zinute=${this.submitData.message}`
+    },
     policyLink: function () {
       return `${this.contactsFormData.checkboxText} <a traget="_blank" href="${this.contactsFormData.policyLink}">${this.contactsFormData.policyText}</a>`
     },
     compText: function () {
       return `${this.contactsData.text} <a traget="_blank" href="${this.contactsData.facebookLink}">${this.contactsData.facebookText}</a>.`
     },
+    // linkToSend: function () {
+    //   var name = this.submitData.name.replace(/ /g, '\u00A0')
+    //   var surname = this.submitData.surname.replace(/ /g, '\u00A0')
+    //   var email = this.submitData.email.replace(/ /g, '\u00A0')
+    //   var phoneNum = this.submitData.phoneNum.replace(/ /g, '\u00A0')
+    //   var message = this.submitData.message.replace(/ /g, '\u00A0')
+    //   return `http://vk.interita.lt/wp-json/vk/v1/email?vardas=${name}&pavarde=${surname}&pastas=${email}&telefonas=${phoneNum}&zinute=${message}`
+    // },
   },
 }
 </script>
