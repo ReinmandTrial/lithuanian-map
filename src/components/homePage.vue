@@ -52,7 +52,10 @@
         <h3 class="home-page__partners-title">
           {{ homePageData.partners.title }}
         </h3>
-        <div class="home-page__partners-slider partners-slider swiper">
+        <div
+          ref="swiper"
+          class="home-page__partners-slider partners-slider swiper"
+        >
           <div class="partners-slider__wrapper swiper-wrapper">
             <a
               href="https://museums.lt/"
@@ -225,7 +228,7 @@ import Vfooter from './footer.vue'
 import contactsPage from './contactsPage.vue'
 import littleLithuania from './littleLithuania.vue'
 import vaneRoad from './vaneRoad.vue'
-import Swiper from 'swiper'
+import Swiper, { Autoplay } from 'swiper'
 
 export default {
   name: 'allPages',
@@ -279,12 +282,8 @@ export default {
   },
   methods: {},
   mounted: function () {
-    new Swiper('.partners-slider', {
-      autoplay: {
-        delay: 300,
-        disableOnInteraction: false,
-      },
-      slidesPerView: 'auto',
+    new Swiper(this.$refs.swiper, {
+      modules: [Autoplay],
       loop: true,
       breakpoints: {
         576: {
@@ -294,6 +293,12 @@ export default {
           spaceBetween: 13,
         },
       },
+      speed: 500,
+      slidesPerView: 'auto',
+      // autoplay: {
+      //   delay: 3000,
+      //   disableOnInteraction: false,
+      // },
     })
   },
 }
@@ -495,10 +500,17 @@ header {
     flex: none;
     width: fit-content;
     height: 115px;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
     @media (max-width: 767.98px) {
       height: 85px;
     }
     img {
+      height: 100%;
       max-height: 100%;
     }
   }

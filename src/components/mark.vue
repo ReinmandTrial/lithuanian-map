@@ -5,6 +5,7 @@
       :key="mark.id"
       :mark="mark"
       @addCardToSelected="addCardToSelected"
+      :zoomvalue="zoomvalue"
     />
   </div>
 </template>
@@ -24,7 +25,7 @@ export default {
     }
   },
   props: {
-    zoomvalue: {},
+    zoomvalue: null,
     selectedObjects: {
       type: Array,
       default() {

@@ -4,7 +4,6 @@
     v-hammer:pan="move"
     v-hammer:panend="moveEnd"
     @resize="setMapWidth"
-    @load="onLoadEvent()"
   >
     <div v-if="showPreloader" class="preloader">
       <img ref="preloaderGif" src="@/assets/images/preloader.gif" alt="" />
@@ -550,12 +549,8 @@ export default {
         this.mapWidth = window.innerHeight / this.coefMapHeight
       }
     },
-    onLoadEvent() {
-      console.log('load')
-    },
     hidePreloader: function () {
       this.showPreloader = false
-      console.log('load')
     },
   },
   computed: {

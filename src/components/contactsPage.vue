@@ -120,7 +120,7 @@ export default {
         facebookText: 'Facebook paskyroje',
         facebookLink: 'https://www.facebook.com/vetrungiukelias',
         text: `Į kilusius klausimus atsakysime Jums kuo galima greičiau. Daugiau informacijos apie naujienas rasite mūsų`,
-        email: 'info@siluteinfo.lt',
+        email: 'info@vetrungiukelias.lt',
       },
       contactsFormData: {
         name: 'Vardas',

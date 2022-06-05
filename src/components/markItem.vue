@@ -5,7 +5,7 @@
     v-bind:style="{
       top: calcAxysY(mark.ilguma),
       left: calcAxysX(mark.platuma),
-      transform: 'scale(' + 1 / zoomvalue + ')',
+      transform: 'scale(' + (1 / zoomvalue) * 1 + ')',
     }"
     :data-region="mark.category_title"
   >
@@ -15,6 +15,9 @@
         v-if="cardOpen"
         :mark="mark"
         @addCardToSelected="addCardToSelected"
+        v-bind:style="{
+          transform: 'scale(' + 1 + ')',
+        }"
       />
     </transition>
   </div>
@@ -38,7 +41,7 @@ export default {
     }
   },
   props: {
-    zoomvalue: {},
+    zoomvalue: null,
     //  cardOpen: {
     //    default() {
     //      return false
@@ -122,6 +125,9 @@ export default {
       opacity: 1;
       transform: scale(1);
     }
+  }
+  &:hover {
+    z-index: 30;
   }
 }
 .mark-btn {

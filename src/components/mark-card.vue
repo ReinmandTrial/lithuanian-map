@@ -7,10 +7,14 @@
       <h4 class="mark-card__title">{{ mark.title }}</h4>
       <p class="mark-card__description" v-html="mark.content"></p>
       <div class="mark-card__button">
-        <button class="btn-red" v-on:click.stop="addCardToSelected">
+        <button
+          type="button"
+          class="btn-red"
+          v-on:click.stop="addCardToSelected"
+        >
           Pasižymėti objektą
         </button>
-        <button class="btn-border">Naviguoti</button>
+        <a target="_blank" :href="mark.link" class="btn-border">Naviguoti</a>
       </div>
     </div>
   </div>
