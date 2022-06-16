@@ -5,7 +5,7 @@
     v-bind:style="{
       top: calcAxysY(mark.ilguma),
       left: calcAxysX(mark.platuma),
-      transform: 'scale(' + (1 / zoomvalue) * 1 + ')',
+      transform: 'scale(' + 1 / zoomvalue + ')',
     }"
     :data-region="mark.category_title"
   >
@@ -73,22 +73,15 @@ export default {
       this.cardOpen = false
     },
     closeCard: function (event) {
-      if (
-        event.target.closest('.mark-btn') ||
-        event.target.closest('.mark-card__close')
-      ) {
-        const marksItems = document.querySelectorAll('.mark')
+      const marksItems = document.querySelectorAll('.mark')
 
-        marksItems.forEach((markItem) => {
-          if (event.target.closest('.mark')) {
-            markItem.style.zIndex = null
-            event.target.closest('.mark').style.zIndex = 30
-          } else {
-            markItem.style.zIndex = null
-          }
-        })
-        this.cardOpen = false
-      }
+      marksItems.forEach((markItem) => {
+        if (event.target.closest('.mark')) {
+          markItem.style.zIndex = null
+          event.target.closest('.mark').style.zIndex = 30
+          this.cardOpen = false
+        }
+      })
 
       // console.log(this.cardOpen)
     },

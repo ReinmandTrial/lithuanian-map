@@ -196,7 +196,7 @@
       <input
         type="range"
         min="1"
-        max="3"
+        max="10"
         value="1"
         class="zoom-panel__slider"
         id="zoom"
@@ -431,21 +431,21 @@ export default {
       })
     },
     zoomPlus: function () {
-      if (this.zoomvalue < 2.9) {
-        this.zoomvalue += 0.2
+      if (this.zoomvalue < 9.9) {
+        this.zoomvalue += 0.5
       }
     },
     zoomMinus: function () {
       if (this.zoomvalue > 1) {
-        this.zoomvalue -= 0.2
+        this.zoomvalue -= 0.5
       }
     },
 
     zoomOnScroll: function (e) {
       if (e.deltaY > 0 && this.zoomvalue > 1) {
-        this.zoomvalue -= 0.2
-      } else if (e.deltaY < 0 && this.zoomvalue < 2.9) {
-        this.zoomvalue += 0.2
+        this.zoomvalue -= 0.5
+      } else if (e.deltaY < 0 && this.zoomvalue < 9.9) {
+        this.zoomvalue += 0.5
       }
 
       // this.move(e)
@@ -453,8 +453,8 @@ export default {
     currectZoom: function () {
       if (this.zoomvalue < 1) {
         this.zoomvalue = 1
-      } else if (this.zoomvalue > 3) {
-        this.zoomvalue = 3
+      } else if (this.zoomvalue > 10) {
+        this.zoomvalue = 10
       }
     },
     activeFilter: function (e) {
