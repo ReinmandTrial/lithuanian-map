@@ -111,8 +111,10 @@ export default {
               if (mark.getAttribute('data-region') == thisRegion) {
                 mark.querySelector('.mark-btn').classList.remove('not-active-r')
                 mark.querySelector('.mark-btn').classList.add('active-r')
+                mark.style.pointerEvents = 'visible'
               } else {
                 mark.querySelector('.mark-btn').classList.add('not-active-r')
+                mark.style.pointerEvents = 'none'
               }
             }
           })
@@ -125,6 +127,7 @@ export default {
               if (mark.getAttribute('data-region') == thisRegion) {
                 mark.querySelector('.mark-btn').classList.remove('active-r')
                 mark.querySelector('.mark-btn').classList.add('not-active-r')
+                mark.style.pointerEvents = 'none'
               }
             }
           })
@@ -136,6 +139,7 @@ export default {
           ) {
             marksDOM.forEach((mark) => {
               mark.querySelector('.mark-btn').classList.remove('not-active-r')
+              mark.style.pointerEvents = 'visible'
             })
           }
         }
@@ -145,8 +149,13 @@ export default {
             if (mark.getAttribute('data-region') == thisRegion) {
               mark.querySelector('.mark-btn').classList.remove('not-active-r')
               mark.querySelector('.mark-btn').classList.add('active-r')
-            } else {
+              mark.style.pointerEvents = 'visible'
+            } else if (
+              !mark.querySelector('.mark-btn').classList.contains('active-r')
+            ) {
               mark.querySelector('.mark-btn').classList.add('not-active-r')
+              mark.style.pointerEvents = 'none'
+              // console.log('find')
             }
           })
           this.countChecked++
@@ -155,6 +164,7 @@ export default {
             if (mark.getAttribute('data-region') == thisRegion) {
               mark.querySelector('.mark-btn').classList.remove('active-r')
               mark.querySelector('.mark-btn').classList.add('not-active-r')
+              mark.style.pointerEvents = 'none'
             }
           })
           this.countChecked--
@@ -165,6 +175,7 @@ export default {
           ) {
             marksDOM.forEach((mark) => {
               mark.querySelector('.mark-btn').classList.remove('not-active-r')
+              mark.style.pointerEvents = 'visible'
             })
           }
         }

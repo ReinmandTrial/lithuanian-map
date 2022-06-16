@@ -107,10 +107,10 @@ export default {
 //   }
 // }
 .mark-card {
-  // &.v-enter-active {
-  //   opacity: 0;
-  //   transform: scale(0);
-  // }
+  &.v-leave-active {
+    opacity: 0;
+    transform: scale(0);
+  }
   // cursor: default;
   // overflow: hidden;
   // // height: 158px;

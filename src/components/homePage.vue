@@ -31,6 +31,13 @@
             </svg>
           </button>
         </header>
+        <video class="header__bg" preload loop autoplay muted playsinline>
+          <source
+            src="@/assets/video/VK svetainei Mp4 1912x800p (1).mp4/"
+            type="video/mp4"
+          />
+          Your browser does not support video
+        </video>
         <div class="home-page__banner-content">
           <h1 class="home-page__title">{{ homePageData.title }}</h1>
           <p class="home-page__descr">{{ homePageData.descr }}</p>
@@ -295,10 +302,10 @@ export default {
       },
       speed: 500,
       slidesPerView: 'auto',
-      // autoplay: {
-      //   delay: 3000,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
     })
   },
 }
@@ -317,7 +324,7 @@ header {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-
+  z-index: 10;
   &__logo {
     cursor: pointer;
     width: 87px;
@@ -348,16 +355,27 @@ header {
   // height: 100vh;
   // overflow-y: auto;
   &__banner {
-    background: url(@/assets/images/banner-bg.jpg) center/cover no-repeat;
+    // background: url(@/assets/images/banner-bg.jpg) center/cover no-repeat;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
     @media (max-width: 991.98px) {
       min-height: unset;
+    }
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
   &__banner-content {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;

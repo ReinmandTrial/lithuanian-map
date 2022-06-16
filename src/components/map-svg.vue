@@ -465,16 +465,21 @@ export default {
         .getAttribute('data-tag')
       var markItems = document
         .querySelector('.marks-container')
-        .querySelectorAll('.mark-btn')
+        .querySelectorAll('.mark')
 
       if (!thisElem.classList.contains('active-t')) {
         thisElem.classList.remove('not-active-t')
         thisElem.classList.add('active-t')
         markItems.forEach((markItem) => {
-          markItem.classList.add('not-active-t')
-          if (thisElemType == markItem.getAttribute('data-tag')) {
-            markItem.classList.remove('not-active-t')
-            markItem.classList.add('active-t')
+          markItem.querySelector('.mark-btn').classList.add('not-active-t')
+          markItem.style.pointerEvents = 'none'
+          if (
+            thisElemType ==
+            markItem.querySelector('.mark-btn').getAttribute('data-tag')
+          ) {
+            markItem.querySelector('.mark-btn').classList.remove('not-active-t')
+            markItem.querySelector('.mark-btn').classList.add('active-t')
+            markItem.style.pointerEvents = 'visible'
           }
         })
         this.countTags++
@@ -482,9 +487,13 @@ export default {
         thisElem.classList.add('not-active-t')
         thisElem.classList.remove('active-t')
         markItems.forEach((markItem) => {
-          if (thisElemType == markItem.getAttribute('data-tag')) {
-            markItem.classList.add('not-active-t')
-            markItem.classList.remove('active-t')
+          if (
+            thisElemType ==
+            markItem.querySelector('.mark-btn').getAttribute('data-tag')
+          ) {
+            markItem.querySelector('.mark-btn').classList.add('not-active-t')
+            markItem.querySelector('.mark-btn').classList.remove('active-t')
+            markItem.style.pointerEvents = 'none'
           }
         })
         this.countTags--
@@ -496,19 +505,68 @@ export default {
         }
       })
 
-      if (
-        this.countTags == 0
-        // && this.regionCount == 0
-      ) {
+      if (this.countTags == 0) {
         filterItems.forEach((filterItem) => {
           filterItem.classList.remove('not-active-t')
         })
         markItems.forEach((markItem) => {
-          markItem.classList.remove('not-active-t')
-          markItem.classList.remove('active-t')
+          markItem.querySelector('.mark-btn').classList.remove('not-active-t')
+          markItem.querySelector('.mark-btn').classList.remove('active-t')
+          markItem.style.pointerEvents = 'visible'
         })
       }
       this.$emit('tagsCount', this.countTags)
+      // const filterItems = document.querySelectorAll('.marks-filter__item')
+      // var thisElem = e.target.closest('.marks-filter__item')
+      // var thisElemType = thisElem
+      //   .querySelector('.mark-btn')
+      //   .getAttribute('data-tag')
+      // var markItems = document
+      //   .querySelector('.marks-container')
+      //   .querySelectorAll('.mark-btn')
+
+      // if (!thisElem.classList.contains('active-t')) {
+      //   thisElem.classList.remove('not-active-t')
+      //   thisElem.classList.add('active-t')
+      //   markItems.forEach((markItem) => {
+      //     markItem.classList.add('not-active-t')
+      //     if (thisElemType == markItem.getAttribute('data-tag')) {
+      //       markItem.classList.remove('not-active-t')
+      //       markItem.classList.add('active-t')
+      //     }
+      //   })
+      //   this.countTags++
+      // } else {
+      //   thisElem.classList.add('not-active-t')
+      //   thisElem.classList.remove('active-t')
+      //   markItems.forEach((markItem) => {
+      //     if (thisElemType == markItem.getAttribute('data-tag')) {
+      //       markItem.classList.add('not-active-t')
+      //       markItem.classList.remove('active-t')
+      //     }
+      //   })
+      //   this.countTags--
+      // }
+
+      // filterItems.forEach((filterItem) => {
+      //   if (!filterItem.classList.contains('active-t')) {
+      //     filterItem.classList.add('not-active-t')
+      //   }
+      // })
+
+      // if (
+      //   this.countTags == 0
+      //   // && this.regionCount == 0
+      // ) {
+      //   filterItems.forEach((filterItem) => {
+      //     filterItem.classList.remove('not-active-t')
+      //   })
+      //   markItems.forEach((markItem) => {
+      //     markItem.classList.remove('not-active-t')
+      //     markItem.classList.remove('active-t')
+      //   })
+      // }
+      // this.$emit('tagsCount', this.countTags)
     },
     hoverFilter: function (e) {
       if (this.countTags == 0) {
@@ -672,8 +730,8 @@ export default {
   &__road-e77 {
     position: absolute;
     top: -2.5%;
-    left: 35.2%;
-    width: 52.7%;
+    left: 26.8%;
+    width: 61.5%;
   }
   &__road-gr {
     position: absolute;

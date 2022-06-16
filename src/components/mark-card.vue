@@ -17,6 +17,30 @@
         <a target="_blank" :href="mark.link" class="btn-border">Naviguoti</a>
       </div>
     </div>
+    <button type="button" class="mark-card__close" @click="$emit('closeCard')">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M24 8L8 24"
+          stroke="#00404E"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8 8L24 24"
+          stroke="#00404E"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -45,7 +69,7 @@ export default {
 <style lang="scss">
 .mark-card {
   cursor: default;
-  overflow: hidden;
+  // overflow: hidden;
   min-height: 158px;
   width: 365px;
   border-radius: 8.59016px;
@@ -61,6 +85,8 @@ export default {
     width: 99px;
     align-self: stretch;
     flex: none;
+    overflow: hidden;
+    border-radius: 8.59016px 0 0 8.59016px;
     img {
       width: 100%;
       height: 100%;
@@ -121,6 +147,19 @@ export default {
     box-sizing: border-box;
     border-radius: 30px;
     padding: 6px 12px;
+  }
+  &__close {
+    position: absolute;
+    transform: translate(50%, -50%);
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

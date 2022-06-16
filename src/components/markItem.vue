@@ -15,6 +15,7 @@
         v-if="cardOpen"
         :mark="mark"
         @addCardToSelected="addCardToSelected"
+        @closeCard="closeCardBtn()"
         v-bind:style="{
           transform: 'scale(' + 1 + ')',
         }"
@@ -68,18 +69,26 @@ export default {
       const deffMapY = endMapY - startMapY
       return ((pos - startMapY) / deffMapY) * 100 + '%'
     },
-    closeCard: function (event) {
-      const marksItems = document.querySelectorAll('.mark')
-
-      marksItems.forEach((markItem) => {
-        if (event.target.closest('.mark')) {
-          markItem.style.zIndex = null
-          event.target.closest('.mark').style.zIndex = 30
-        } else {
-          markItem.style.zIndex = null
-        }
-      })
+    closeCardBtn() {
       this.cardOpen = false
+    },
+    closeCard: function (event) {
+      if (
+        event.target.closest('.mark-btn') ||
+        event.target.closest('.mark-card__close')
+      ) {
+        const marksItems = document.querySelectorAll('.mark')
+
+        marksItems.forEach((markItem) => {
+          if (event.target.closest('.mark')) {
+            markItem.style.zIndex = null
+            event.target.closest('.mark').style.zIndex = 30
+          } else {
+            markItem.style.zIndex = null
+          }
+        })
+        this.cardOpen = false
+      }
 
       // console.log(this.cardOpen)
     },
@@ -168,13 +177,13 @@ export default {
     animation: showCard 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
   }
   &.v-leave-active {
-    opacity: 0;
-    transform: scale(0);
+    opacity: 0.2;
+    transform: scale(0) !important;
     transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 
   cursor: default;
-  overflow: hidden;
+  // overflow: hidden;
   // height: 158px;
   width: 365px;
   border-radius: 8.59016px;

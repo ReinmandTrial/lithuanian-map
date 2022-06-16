@@ -508,6 +508,12 @@ export default {
     height: 52px;
     background: #f8f8f8;
     border-radius: 50%;
+    @media (max-width: 575.98px) {
+      @media (max-height: 600px) {
+        right: 10px;
+        top: 10px;
+      }
+    }
   }
 
   &__list {
@@ -564,6 +570,10 @@ export default {
       top: -17px;
       width: 617px;
     }
+
+    @media (max-width: 374.98px) {
+      width: 535px;
+    }
   }
 
   &__cloud-bottom-left {
@@ -577,6 +587,9 @@ export default {
     @media (max-width: 991.98px) {
       width: 405px;
     }
+    @media (max-width: 374.98px) {
+      width: 323px;
+    }
   }
 
   &__cloud-right-center {
@@ -589,6 +602,9 @@ export default {
     @media (max-width: 575.98px) {
       width: 331px;
       top: 51%;
+    }
+    @media (max-width: 374.98px) {
+      width: 270px;
     }
   }
 }
