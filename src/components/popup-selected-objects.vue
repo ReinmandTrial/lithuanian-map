@@ -52,7 +52,15 @@
             v-for="mark in selectedObjects"
             :key="mark.id"
           >
-            <mark-card :mark="mark" @addCardToSelected="addCardToSelected" />
+            <mark-card
+              :mark="mark"
+              @addCardToSelected="addCardToSelected"
+              :not_to_close="true"
+            >
+              <template v-slot:btn>
+                Ištrinti objektą
+              </template>
+            </mark-card>
           </li>
         </ul>
         <p v-else class="popup-selected-objects__empty">

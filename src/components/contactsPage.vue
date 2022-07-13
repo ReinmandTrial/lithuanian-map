@@ -29,7 +29,7 @@
         <div class="contacts__info">
           <h3 class="contacts__subtitle">{{ contactsData.subtitle }}</h3>
           <p class="contacts__text" v-html="compText"></p>
-          <a :href="contactsData.email" target="_blank" class="contacts__email">
+          <a :href="'mailto:' + contactsData.email" class="contacts__email">
             <span class="contacts__email-icon">
               <img src="@/assets/images/svg-icons/email.svg" alt="icon email" />
             </span>
@@ -182,7 +182,7 @@ export default {
       return `${this.contactsFormData.checkboxText} <a traget="_blank" href="${this.contactsFormData.policyLink}">${this.contactsFormData.policyText}</a>`
     },
     compText: function () {
-      return `${this.contactsData.text} <a traget="_blank" href="${this.contactsData.facebookLink}">${this.contactsData.facebookText}</a>.`
+      return `${this.contactsData.text} <a target="_blank" href="${this.contactsData.facebookLink}">${this.contactsData.facebookText}</a>.`
     },
     // linkToSend: function () {
     //   var name = this.submitData.name.replace(/ /g, '\u00A0')

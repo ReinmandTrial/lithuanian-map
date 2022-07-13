@@ -9,7 +9,7 @@
     }"
     :data-region="mark.category_title"
   >
-    <mark-btn :mark="mark" @click.native="showCard" />
+    <mark-btn :mark="mark" @click.native="showCard(mark)" />
     <transition>
       <mark-card
         v-if="cardOpen"
@@ -85,8 +85,10 @@ export default {
 
       // console.log(this.cardOpen)
     },
-    showCard: function () {
-      this.cardOpen = true
+    showCard: function (data) {
+      if (window.innerWidth >= 992) {
+        this.cardOpen = true
+      }
       const marksItems = document.querySelectorAll('.mark')
 
       marksItems.forEach((markItem) => {
@@ -94,8 +96,33 @@ export default {
           markItem.classList.remove('active')
         }
       })
+
+      var thisMark = event.target.closest('.mark')
+
+      if (window.innerWidth >= 992) {
+        if (thisMark.getBoundingClientRect().top <= 450) {
+          thisMark.classList.add('from-top')
+          thisMark.classList.add('from-top-origin')
+        } else {
+          thisMark.classList.contains('from-top') &&
+            thisMark.classList.remove('from-top')
+          thisMark.classList.contains('from-top-origin') &&
+            thisMark.classList.remove('from-top-origin')
+        }
+      }
+
+      // event.target.closest('.mark').getBoundingClientRect().top
       event.target.closest('.mark').style.zIndex = 30
       // event.target.closest('.mark').classList.add('active')
+
+      this.$emit('openCardMobile', {
+        data: data,
+        thisEvent: event,
+      })
+
+      // console.log(data)
+
+      // if()
     },
     addCardToSelected: function (data) {
       this.$emit('addCardToSelected', data)
@@ -127,6 +154,13 @@ export default {
       opacity: 1;
       transform: scale(1);
     }
+  }
+  &.from-top .mark-card {
+    bottom: 0;
+    top: calc(100% + 5px);
+  }
+  &.from-top-origin .mark-card {
+    transform-origin: left top;
   }
   &:hover {
     z-index: 30;
@@ -174,11 +208,11 @@ export default {
     transform: scale(0) !important;
     transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-
+  height: fit-content;
   cursor: default;
   // overflow: hidden;
   // height: 158px;
-  width: 365px;
+  width: 400px;
   border-radius: 8.59016px;
   background: #ffffff;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -193,6 +227,9 @@ export default {
   //   transform: scale(0);
   transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transform-origin: left bottom;
+  // @media (max-width: 991.98px) {
+  //   position: fixed;
+  // }
   &__left {
     width: 99px;
     align-self: stretch;
@@ -210,7 +247,7 @@ export default {
     flex-direction: column;
   }
   &__title {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 22px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -221,9 +258,9 @@ export default {
     color: #212b36;
   }
   &__description {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 400;
-    line-height: 14px;
+    line-height: 16px;
     margin-bottom: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -244,7 +281,7 @@ export default {
     border-radius: 30px;
     padding: 6px 12px;
     font-weight: 700;
-    font-size: 8.05328px;
+    font-size: 12px;
     line-height: 14px;
   }
   .btn-border {

@@ -83,10 +83,10 @@ export default {
           'PRADĖK ĮSPŪDŽIŲ KUPINĄ KELIONĘ „VĖTRUNGIU KELIU“ PO MAŽĄJĄ LIETUVĄ!',
         routeText:
           'Tapk kelionės planuotoju ir susikurk SAVO „Vėtrungių kelio“ maršrutą.',
-        routeButtonText: 'Kurk Savo Vėtrungių kelią',
+        routeButtonText: 'Kurk Savo Vėtrungių Kelią',
         playText:
           'Žaisk „Vėtrungių kelio“ interaktyvų žaidimą ir laimėk prizus.',
-        playButtonText: 'Žaisk vėtrungių kelią',
+        playButtonText: 'Žaisk Vėtrungių Kelią',
       },
     }
   },

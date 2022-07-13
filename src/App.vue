@@ -204,7 +204,11 @@
           </li>
         </ul>
         <div class="burger__socials">
-          <a href="#" target="_blank" class="burger__social-link">
+          <a
+            href="https://www.facebook.com/vetrungiukelias"
+            target="_blank"
+            class="burger__social-link"
+          >
             <svg
               width="34"
               height="34"
@@ -218,7 +222,11 @@
               />
             </svg>
           </a>
-          <a href="#" target="_blank" class="burger__social-link">
+          <a
+            href="https://www.youtube.com/watch?v=Eij3CNpQxmQ&ab_channel=%C5%A0ilut%C4%97skult%C5%ABrosirpramog%C5%B3centras"
+            target="_blank"
+            class="burger__social-link"
+          >
             <svg
               width="34"
               height="34"
@@ -301,7 +309,7 @@ export default {
       if (this.openBurger == true) {
         this.openBurger = false
       }
-      console.log(this.openBurger)
+      // console.log(this.openBurger)
     },
     addCardToSelected: function (data) {
       let myArray = this.selectedObjects
@@ -310,19 +318,21 @@ export default {
       if (myIndex !== -1) {
         myArray.splice(myIndex, 1)
         data.thisEvent.target.closest('.btn-red').innerHTML =
-          'Pasižymėti objektą'
+          'Pasirinkti objektą'
       } else {
         myArray.push(data.thisMark)
-        data.thisEvent.target.closest('.btn-red').innerHTML =
-          'Atsižymėti objektą'
+        data.thisEvent.target.closest('.btn-red').innerHTML = 'Ištrinti objektą'
 
         let card = data.thisEvent.target.closest('.mark-card')
         let counter = document.querySelector('.selected-marks__counter')
         const oldValueLeft = getComputedStyle(card).left
         const oldValueBottom = getComputedStyle(card).bottom
+        const oldValueTop = getComputedStyle(card).top
 
         let cardX = card.getBoundingClientRect().left
-        let cardY = card.getBoundingClientRect().bottom
+
+        let cardYBottom = card.getBoundingClientRect().bottom
+        let cardYTop = card.getBoundingClientRect().top
         let cardHeight = card.getBoundingClientRect().height
         let counterX = counter.getBoundingClientRect().left
         let counterY = counter.getBoundingClientRect().bottom
@@ -330,21 +340,34 @@ export default {
         let markBtnHeight = markBtn.getBoundingClientRect().height
         let oldCardX = card.offsetTop
 
-        let distanceFromMark = oldCardX + cardHeight
+        // let distanceFromMark = oldCardX + cardHeight
 
         let newCardX = counterX - cardX + 'px'
-        let newCardY =
-          cardY - counterY - distanceFromMark + markBtnHeight + 'px'
+        let newCardY
 
+        if (card.closest('.mark').classList.contains('from-top-origin')) {
+          newCardY = -cardYTop + counterY + oldCardX + markBtnHeight + 'px'
+          card.style.top = newCardY
+        } else {
+          newCardY =
+            cardYBottom -
+            counterY -
+            (oldCardX + cardHeight) +
+            markBtnHeight +
+            'px'
+          card.style.bottom = newCardY
+        }
+
+        // card.closest('.mark').classList.remove('from-top-origin')
         card.style.left = newCardX
-        card.style.bottom = newCardY
-        card.closest('.mark').classList.remove('active')
+        // card.closest('.mark').classList.remove('active')
 
         // console.log(oldValueX)
 
         setTimeout(function () {
           card.style.left = oldValueLeft
           card.style.bottom = oldValueBottom
+          card.style.top = oldValueTop
         }, 300)
       }
     },
@@ -562,6 +585,7 @@ export default {
   &__cloud-top-left {
     top: -100px;
     left: -1200px;
+    pointer-events: none;
     @media (max-width: 991.98px) {
       width: 900px;
       top: -80px;
@@ -579,6 +603,7 @@ export default {
   &__cloud-bottom-left {
     bottom: 32px;
     left: -780px;
+    pointer-events: none;
     // transition-delay: 0.15s;
     @media (max-width: 1125px) {
       width: 590px;
@@ -595,6 +620,7 @@ export default {
   &__cloud-right-center {
     top: 55%;
     right: -650px;
+    pointer-events: none;
     // transition-delay: 0.2s;
     @media (max-width: 991.98px) {
       width: 410px;

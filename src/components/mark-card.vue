@@ -1,23 +1,32 @@
 <template>
-  <div class="mark-card">
-    <div class="mark-card__left">
+  <div class="mark-card" v-if="mark">
+    <div class="mark-card__left" v-if="mark.featured_image">
       <img :src="mark.featured_image" alt="" />
     </div>
     <div class="mark-card__right">
       <h4 class="mark-card__title">{{ mark.title }}</h4>
-      <p class="mark-card__description" v-html="mark.content"></p>
+      <p
+        class="mark-card__description"
+        v-html="mark.content"
+        @click.stop=""
+      ></p>
       <div class="mark-card__button">
         <button
           type="button"
           class="btn-red"
           v-on:click.stop="addCardToSelected"
         >
-          Pasižymėti objektą
+          <slot name="btn">Pasirinkti objektą</slot>
         </button>
         <a target="_blank" :href="mark.link" class="btn-border">Naviguoti</a>
       </div>
     </div>
-    <button type="button" class="mark-card__close" @click="$emit('closeCard')">
+    <button
+      v-if="!not_to_close"
+      type="button"
+      class="mark-card__close"
+      @click="$emit('closeCard')"
+    >
       <svg
         width="22"
         height="22"
@@ -52,6 +61,11 @@ export default {
   },
   props: {
     mark: null,
+    not_to_close: {
+      default() {
+        return false
+      },
+    },
   },
   methods: {
     addCardToSelected: function (event) {
@@ -81,6 +95,7 @@ export default {
   left: 0;
   bottom: calc(100% + 5px);
   column-gap: 15px;
+  max-height: 300px;
   &__left {
     width: 99px;
     align-self: stretch;
@@ -100,7 +115,7 @@ export default {
     flex-direction: column;
   }
   &__title {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 22px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -109,18 +124,29 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     color: #212b36;
+    flex: none;
   }
   &__description {
-    font-size: 10px;
+    flex: 1 1 auto;
+    font-size: 14px;
     font-weight: 400;
-    line-height: 14px;
+    line-height: 18px;
     margin-bottom: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     // max-height: 57px;
     color: #212b36;
+    overflow-y: auto;
+    word-wrap: break-word;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+    h6 {
+      font-size: inherit;
+    }
   }
   &__button {
+    flex: none;
     margin-bottom: 0px;
     margin-top: auto;
     display: flex;
@@ -134,12 +160,14 @@ export default {
     border-radius: 30px;
     padding: 6px 12px;
     font-weight: 700;
-    font-size: 8.05328px;
+    font-size: 12px;
     line-height: 14px;
+    display: flex;
+    align-items: center;
   }
   .btn-border {
     font-weight: 700;
-    font-size: 8.05328px;
+    font-size: 12px;
     line-height: 14px;
     color: #db3831;
     background: #ffffff;
@@ -147,6 +175,8 @@ export default {
     box-sizing: border-box;
     border-radius: 30px;
     padding: 6px 12px;
+    display: flex;
+    align-items: center;
   }
   &__close {
     position: absolute;

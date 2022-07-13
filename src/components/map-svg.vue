@@ -27,11 +27,6 @@
         >
           <div class="map__wrap" :style="{ width: mapWidth + 'px' }">
             <picture>
-              <source
-                type="image/jpg"
-                media="(max-width: 768px)"
-                srcset="@/assets/images/Base_Map_SVG--mob.jpg"
-              />
               <img
                 src="@/assets/images/Base_Map_SVG.jpg"
                 alt="map"
@@ -130,7 +125,9 @@
                   src="@/assets/images/buildings/Gargzdai_SVG.png"
                   alt="Jacht"
                 />
-                <p class="map__town-name">Gargzdai</p>
+                <p class="map__town-name">
+                  GARGŽDAI
+                </p>
               </div>
               <div class="map__jurbarkas">
                 <img
@@ -148,21 +145,21 @@
                   src="@/assets/images/buildings/Pagegiai_SVG.png"
                   alt="Jacht"
                 />
-                <p class="map__town-name">Pagegiai</p>
+                <p class="map__town-name">PAGĖGIAI</p>
               </div>
               <div class="map__silute">
                 <img
                   src="@/assets/images/buildings/Silute_SVG.png"
                   alt="Jacht"
                 />
-                <p class="map__town-name">Silute</p>
+                <p class="map__town-name">ŠILUTĖ</p>
               </div>
               <div class="map__taurage">
                 <img
                   src="@/assets/images/buildings/Taurage_SVG.png"
                   alt="Jacht"
                 />
-                <p class="map__town-name">Taurage</p>
+                <p class="map__town-name">TAURAGĖ</p>
               </div>
             </div>
             <div class="map__clouds">
@@ -180,14 +177,23 @@
               </div>
             </div>
             <v-mark
+              :zoomvalue="zoomvalue"
               :marks="marks"
               @addCardToSelected="addCardToSelected"
-              :zoomvalue="zoomvalue"
+              @openCardMobile="openCardMobile"
             />
           </div>
         </div>
       </div>
     </div>
+    <transition>
+      <mark-card
+        :mark="openCard"
+        @addCardToSelected="addCardToSelected"
+        @closeCard="closeCardMobile"
+        ref="cardMobile"
+      />
+    </transition>
     <div class="zoom-panel">
       <button type="button" class="zoom-panel__plus" @click="zoomPlus">
         <img src="@/assets/images/svg-icons/plus.svg" alt="" />
@@ -256,6 +262,7 @@
 <script>
 import Mark from './mark.vue'
 import MarkBtn from './mark-btn.vue'
+import MarkCard from './mark-card.vue'
 
 export default {
   name: 'mapSvg',
@@ -335,6 +342,7 @@ export default {
           ],
         },
       ],
+      openCard: null,
       // gifSrc: this.$refs.preloaderGif,
     }
   },
@@ -356,38 +364,56 @@ export default {
   components: {
     'v-mark': Mark,
     'mark-btn': MarkBtn,
+    'mark-card': MarkCard,
   },
   methods: {
-    move: function (e) {
-      // console.log('move')
-
-      if (this.minTranslateX < e.deltaX + this.translateX) {
-        var overXMin = e.deltaX + this.translateX - this.minTranslateX
-        this.translateX -= overXMin
-        this.newTranslateX = this.minTranslateX
-      } else if (this.maxTranslateX > e.deltaX + this.translateX) {
-        var overXMax = e.deltaX + this.translateX - this.maxTranslateX
-        this.translateX -= overXMax
-        this.newTranslateX = this.maxTranslateX
-      } else {
-        this.newTranslateX = e.deltaX + this.translateX
+    openCardMobile(data) {
+      if (window.innerWidth < 992) {
+        this.openCard = data.data
       }
+      // const card = this.$refs.cardMobile
+      // console.log(card)
 
-      if (this.minTranslateY < e.deltaY + this.translateY) {
-        var overYMin = e.deltaY + this.translateY - this.minTranslateY
-        this.translateY -= overYMin
-        this.newTranslateY = this.minTranslateY
-      } else if (this.maxTranslateY > e.deltaY + this.translateY) {
-        var overYMax = e.deltaY + this.translateY - this.maxTranslateY
-        this.translateY -= overYMax
-        this.newTranslateY = this.maxTranslateY
-      } else {
-        this.newTranslateY = e.deltaY + this.translateY
+      // card.style.bottom = 0
+      // card.style.left = 0
+    },
+    closeCardMobile() {
+      this.openCard = null
+    },
+    move: function (e) {
+      if (!e.target.closest('.mark-card')) {
+        // console.log('move')
+
+        if (this.minTranslateX < e.deltaX + this.translateX) {
+          var overXMin = e.deltaX + this.translateX - this.minTranslateX
+          this.translateX -= overXMin
+          this.newTranslateX = this.minTranslateX
+        } else if (this.maxTranslateX > e.deltaX + this.translateX) {
+          var overXMax = e.deltaX + this.translateX - this.maxTranslateX
+          this.translateX -= overXMax
+          this.newTranslateX = this.maxTranslateX
+        } else {
+          this.newTranslateX = e.deltaX + this.translateX
+        }
+
+        if (this.minTranslateY < e.deltaY + this.translateY) {
+          var overYMin = e.deltaY + this.translateY - this.minTranslateY
+          this.translateY -= overYMin
+          this.newTranslateY = this.minTranslateY
+        } else if (this.maxTranslateY > e.deltaY + this.translateY) {
+          var overYMax = e.deltaY + this.translateY - this.maxTranslateY
+          this.translateY -= overYMax
+          this.newTranslateY = this.maxTranslateY
+        } else {
+          this.newTranslateY = e.deltaY + this.translateY
+        }
       }
     },
     moveEnd: function (e) {
-      this.translateX += e.deltaX
-      this.translateY += e.deltaY
+      if (!e.target.closest('.mark-card')) {
+        this.translateX += e.deltaX
+        this.translateY += e.deltaY
+      }
     },
 
     minMaxPos: function () {
@@ -442,10 +468,12 @@ export default {
     },
 
     zoomOnScroll: function (e) {
-      if (e.deltaY > 0 && this.zoomvalue > 1) {
-        this.zoomvalue -= 0.5
-      } else if (e.deltaY < 0 && this.zoomvalue < 9.9) {
-        this.zoomvalue += 0.5
+      if (!e.target.closest('.mark-card')) {
+        if (e.deltaY > 0 && this.zoomvalue > 1) {
+          this.zoomvalue -= 0.5
+        } else if (e.deltaY < 0 && this.zoomvalue < 9.9) {
+          this.zoomvalue += 0.5
+        }
       }
 
       // this.move(e)
@@ -471,8 +499,6 @@ export default {
         thisElem.classList.remove('not-active-t')
         thisElem.classList.add('active-t')
         markItems.forEach((markItem) => {
-          markItem.querySelector('.mark-btn').classList.add('not-active-t')
-          markItem.style.pointerEvents = 'none'
           if (
             thisElemType ==
             markItem.querySelector('.mark-btn').getAttribute('data-tag')
@@ -480,6 +506,12 @@ export default {
             markItem.querySelector('.mark-btn').classList.remove('not-active-t')
             markItem.querySelector('.mark-btn').classList.add('active-t')
             markItem.style.pointerEvents = 'visible'
+          }
+          if (
+            !markItem.querySelector('.mark-btn').classList.contains('active-t')
+          ) {
+            markItem.querySelector('.mark-btn').classList.add('not-active-t')
+            markItem.style.pointerEvents = 'none'
           }
         })
         this.countTags++
@@ -569,7 +601,7 @@ export default {
       // this.$emit('tagsCount', this.countTags)
     },
     hoverFilter: function (e) {
-      if (this.countTags == 0) {
+      if (this.countTags == 0 && window.innerWidth >= 992) {
         var thisElem = e.target.closest('.marks-filter__item')
         var markItems = document
           .querySelector('.marks-container')
@@ -587,7 +619,7 @@ export default {
       }
     },
     hoverFilterEnd: function () {
-      if (this.countTags == 0) {
+      if (this.countTags == 0 && window.innerWidth >= 992) {
         var markItems = document
           .querySelector('.marks-container')
           .querySelectorAll('.mark-btn')
@@ -599,6 +631,7 @@ export default {
     },
     addCardToSelected: function (data) {
       this.$emit('addCardToSelected', data)
+      this.openCard = null
     },
     setMapWidth: function () {
       if (window.innerHeight <= window.innerWidth * this.coefMapHeight) {
@@ -646,6 +679,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mark-card {
+  position: fixed;
+  bottom: 150px;
+  left: 20px;
+  right: 20px;
+  width: calc(100% - 40px);
+  z-index: 20;
+}
 .preloader {
   position: fixed;
   top: 0;
@@ -1073,10 +1114,12 @@ export default {
         transform: scale(1.15);
       }
     }
-    &:hover .marks-filter__descr {
-      opacity: 0.9;
-      transform: translateX(-50%) scale(1);
-      transition-delay: 0.1s;
+    @media (min-width: 992px) {
+      &:hover .marks-filter__descr {
+        opacity: 0.9;
+        transform: translateX(-50%) scale(1);
+        transition-delay: 0.1s;
+      }
     }
     &.active-t {
       .marks-filter__cancel {
@@ -1085,9 +1128,18 @@ export default {
         transform: translateX(-50%) scale(1);
       }
     }
-    &.not-active-t:not(:hover) {
-      .mark-btn {
-        background: #ced4d1 !important;
+    @media (min-width: 992px) {
+      &.not-active-t:not(:hover) {
+        .mark-btn {
+          background: #ced4d1 !important;
+        }
+      }
+    }
+    @media (max-width: 991.98px) {
+      &.not-active-t {
+        .mark-btn {
+          background: #ced4d1 !important;
+        }
       }
     }
   }

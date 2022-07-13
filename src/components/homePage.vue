@@ -4,7 +4,7 @@
       <div class="home-page__banner">
         <header class="header">
           <div class="header__logo">
-            <img src="@/assets/images/logo-white.png" alt="Logo" />
+            <img src="@/assets/images/logo-white.svg" alt="Logo" />
           </div>
 
           <button
@@ -246,8 +246,8 @@ export default {
         title: 'MAŽOJI LIETUVA',
         descr: 'KELIAUK ATRASK PAŽINK',
         btns: {
-          create: 'Kurk Savo Vėtrungių kelią',
-          play: 'Žaisk vėtrungių kelią',
+          create: 'Kurk Savo Vėtrungių Kelią',
+          play: 'Žaisk Vėtrungių Kelią',
         },
         partners: {
           title: 'Mūsų partneriai',
@@ -312,7 +312,7 @@ export default {
 </script>
 
 <style lang="scss">
-header {
+.header {
   padding: 20px 25px;
   margin: 0 auto;
   display: flex;

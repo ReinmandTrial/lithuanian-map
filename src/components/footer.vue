@@ -67,7 +67,7 @@ export default {
           youtube: 'https://youtu.be/Eij3CNpQxmQ',
         },
         buttons: {
-          play: 'Žaisk vėtrungių kelią',
+          play: 'Žaisk Vėtrungių Kelią',
           contacts: 'Kontaktai',
         },
       },
